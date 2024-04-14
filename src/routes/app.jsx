@@ -10,7 +10,7 @@ import { useAuth, web3, _ } from '../contexts/AuthContext'
 import styles from './App.module.scss'
 
 import Web3 from 'web3'
-import ABI from '../abi/upstore.json'
+import ABI from '../abi/candyzap.json'
 import party from 'party-js'
 // import { getApp } from './../util/api'
 

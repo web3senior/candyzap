@@ -5,7 +5,7 @@ import MaterialIcon from './helper/MaterialIcon'
 import { useAuth, web3, _ } from '../contexts/AuthContext'
 import Web3 from 'web3'
 import Shimmer from './helper/Shimmer'
-import ABI from './../abi/upstore.json'
+import ABI from './../abi/candyzap.json'
 import styles from './Whitelist.module.scss'
 
 const WhitelistFactoryAddr = web3.utils.padLeft(`0x2`, 64)

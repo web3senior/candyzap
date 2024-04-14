@@ -8,7 +8,7 @@ import styles from './Layout.module.scss'
 import Logo from './../../src/assets/logo.svg'
 import Aratta from './../../src/assets/aratta.svg'
 import Lukso from './../../src/assets/lukso.svg'
-import UniversalProfile from './../../src/assets/logo.svg'
+import UniversalProfile from './../../src/assets/universal-profile.svg'
 import party from 'party-js'
 
 party.resolvableShapes['UniversalProfile'] = `<img src="${UniversalProfile}"/>`
@@ -44,12 +44,14 @@ export default function Root() {
       <div className={styles.layout}>
         <header className={`${styles.header}`}>
           <div className={`__container d-flex flex-row align-items-center justify-content-between`} data-width={`xlarge`}>
-            <div className={`d-flex flex-row align-items-center justify-content-start`} style={{ columnGap: `1rem` }}>
-              <figure>
-                <img src={Logo} />
-              </figure>
-              <b>{import.meta.env.VITE_TITLE}</b>
-            </div>
+            <Link to={`/`}>
+              <div className={`d-flex flex-row align-items-center justify-content-start`} style={{ columnGap: `1rem` }}>
+                <figure>
+                  <img src={Logo} />
+                </figure>
+                <b>{import.meta.env.VITE_TITLE}</b>
+              </div>
+            </Link>
 
             <div className={`d-flex align-items-center justify-content-end`}>
               <div className={`d-flex flex-row align-items-center justify-content-end`}>
