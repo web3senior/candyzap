@@ -358,6 +358,7 @@ function Home({ title }) {
               <b>CandyZap</b>
             </h3>
             <p>CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.</p>
+            <a target={`_blank`} className='btn' style={{color:'white'}} href={`https://explorer.execution.mainnet.lukso.network/address/${import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET}?tab=read_contract`}>View Verified Contract</a>
           </div>
 
           <figure className=" ms-hiddenXlDown">
