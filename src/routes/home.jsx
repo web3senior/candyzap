@@ -327,6 +327,17 @@ function Home({ title }) {
                 <a target={`_blank`} href={`https://wallet.universalprofile.cloud/${winner}?network=mainnet`}>
                   {winner} 🍭
                 </a>
+                <br />
+                <a
+                  href={`
+                https://twitter.com/share?text=Just minted my CandyZap!  Can't wait to see if the random reward system brings any sweet surprises This project is buzzing with innovation and the on-chain artwork 🍭🆙✨
+                &url=https://candyzap.com/
+                &hashtags=LUKSO,CandyZap,NFT,LSP8,NFTCommunity
+                `}
+                  target={`_blank`}
+                >
+                  Share on 𝕏
+                </a>
               </h4>
             )}
           </div>
@@ -361,7 +372,14 @@ function Home({ title }) {
               <b>CandyZap</b>
             </h3>
             <p>CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.</p>
-            <a target={`_blank`} className='btn' style={{color:'white'}} href={`https://explorer.execution.mainnet.lukso.network/address/${import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET}?tab=read_contract`}>View Verified Contract</a>
+            <a
+              target={`_blank`}
+              className="btn"
+              style={{ color: 'white' }}
+              href={`https://explorer.execution.mainnet.lukso.network/address/${import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET}?tab=read_contract`}
+            >
+              View Verified Contract
+            </a>
           </div>
 
           <figure className=" ms-hiddenXlDown">

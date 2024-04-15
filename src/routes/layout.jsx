@@ -8,6 +8,8 @@ import styles from './Layout.module.scss'
 import Logo from './../../src/assets/logo.svg'
 import Aratta from './../../src/assets/aratta.svg'
 import Lukso from './../../src/assets/lukso.svg'
+import telegramIcon from './../../src/assets/telegram.svg'
+import xIcon from './../../src/assets/x.svg'
 import UniversalProfile from './../../src/assets/universal-profile.svg'
 import party from 'party-js'
 
@@ -94,9 +96,6 @@ export default function Root() {
                           <span>{auth.wallet && `${auth.wallet.slice(0, 4)}...${auth.wallet.slice(38)}`}</span>
                         </div>
                       </li>
-                      <li>My dApps</li>
-                      <li>Settings</li>
-                      <li>Disconnect</li>
                     </ul>
                   </div>
                 )}
@@ -112,12 +111,21 @@ export default function Root() {
         </main>
 
         <footer>
+          <div className={`d-flex flex-row align-items-center justify-content-center`}>
+            <a href={`https://t.me/candyzapnft`} target={`_blank`}>
+              <img alt={`Telegram`} src={telegramIcon} />
+            </a>
+            <a href={`//twitter.com/@CandyZapNFT`} target={`_blank`}>
+              <img alt={`Twitter`} src={xIcon} />
+            </a>
+          </div>
+          <br />
           <a href={`//aratta.dev`} target={`_blank`}>
             <figure>
               <img alt={import.meta.env.AUTHOR} src={Aratta} />
             </figure>
           </a>
-          <p>@ 2024 CandyZap. All rights reserved.</p>
+          <p>@ {new Date().getFullYear()} CandyZap. All rights reserved.</p>
         </footer>
       </div>
     </>
