@@ -223,6 +223,9 @@ function Home({ title }) {
                 count: party.variation.range(20, 40),
                 shapes: ['Vector0', 'Vector1', 'Vector2', 'Vector3', 'Vector4', 'Vector5', 'Vector6', 'Vector7'],
               })
+
+              e.target.innerText = `Mint`
+              toast.dismiss(t)
             })
             .catch((error) => {
               e.target.innerText = `Mint`
