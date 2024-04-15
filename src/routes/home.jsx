@@ -330,7 +330,7 @@ function Home({ title }) {
                 <br />
                 <a
                   href={`
-                https://twitter.com/share?text=Just minted my CandyZap!  Can't wait to see if the random reward system brings any sweet surprises 🍭🆙✨
+                https://twitter.com/share?text=Just minted my CandyZap!  Can't wait to see if the random reward system brings any sweet surprises 🍭🆙✨ @CandyZapNFT
                 &url=https://candyzap.com/
                 &hashtags=LUKSO,CandyZap,NFT,LSP8,NFTCommunity
                 `}
