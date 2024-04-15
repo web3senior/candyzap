@@ -2,50 +2,343 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "url",
-				"type": "string"
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes",
+				"name": "operatorNotificationData",
+				"type": "bytes"
+			}
+		],
+		"name": "authorizeOperator",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes[]",
+				"name": "data",
+				"type": "bytes[]"
+			}
+		],
+		"name": "batchCalls",
+		"outputs": [
+			{
+				"internalType": "bytes[]",
+				"name": "results",
+				"type": "bytes[]"
 			}
 		],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "ERC725Y_DataKeysValuesEmptyArray",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "ERC725Y_DataKeysValuesLengthMismatch",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "ERC725Y_MsgValueDisallowed",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "EnforcedPause",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "ExpectedPause",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "storedData",
+				"type": "bytes"
+			}
+		],
+		"name": "InvalidExtensionAddress",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"name": "InvalidFunctionSelector",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP4TokenNameNotEditable",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP4TokenSymbolNotEditable",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP4TokenTypeNotEditable",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "callIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "LSP8BatchCallFailed",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8CannotSendToAddressZero",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8CannotUseAddressZeroAsOperator",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8InvalidTransferBatch",
+		"type": "error"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "bytes32",
-				"name": "appId",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "LSP8NonExistentTokenId",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "LSP8NonExistingOperator",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
 				"type": "bytes32"
 			},
 			{
 				"internalType": "address",
-				"name": "sender",
+				"name": "caller",
 				"type": "address"
 			}
 		],
-		"name": "DuplicatedAddress",
+		"name": "LSP8NotTokenOperator",
 		"type": "error"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "owner",
+				"name": "tokenOwner",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "caller",
 				"type": "address"
 			}
 		],
-		"name": "OwnableInvalidOwner",
+		"name": "LSP8NotTokenOwner",
 		"type": "error"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "account",
+				"name": "tokenReceiver",
 				"type": "address"
 			}
 		],
-		"name": "OwnableUnauthorizedAccount",
+		"name": "LSP8NotifyTokenReceiverContractMissingLSP1Interface",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenReceiver",
+				"type": "address"
+			}
+		],
+		"name": "LSP8NotifyTokenReceiverIsEOA",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "LSP8OperatorAlreadyAuthorized",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "caller",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "tokenOwner",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "LSP8RevokeOperatorNotAuthorized",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8TokenContractCannotHoldValue",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "LSP8TokenIdAlreadyMinted",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8TokenIdFormatNotEditable",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8TokenIdsDataEmptyArray",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8TokenIdsDataLengthMismatch",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "LSP8TokenOwnerCannotBeOperator",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "oldOwner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "LSP8TokenOwnerChanged",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes4",
+				"name": "functionSelector",
+				"type": "bytes4"
+			}
+		],
+		"name": "NoExtensionFoundForFunctionSelector",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "callerAddress",
+				"type": "address"
+			}
+		],
+		"name": "OwnableCallerNotTheOwner",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "OwnableCannotSetZeroAddressAsOwner",
 		"type": "error"
 	},
 	{
@@ -65,27 +358,150 @@
 		"type": "error"
 	},
 	{
-		"inputs": [],
-		"name": "Unauthorized",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "length",
+				"type": "uint256"
+			}
+		],
+		"name": "StringsInsufficientHexLength",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "totalSupply",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "maxSupply",
+				"type": "uint256"
+			}
+		],
+		"name": "SupplyingLimitExceeded",
 		"type": "error"
 	},
 	{
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "func",
-				"type": "string"
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "dataKey",
+				"type": "bytes32"
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
-				"name": "gas",
-				"type": "uint256"
+				"internalType": "bytes",
+				"name": "dataValue",
+				"type": "bytes"
 			}
 		],
-		"name": "Log",
+		"name": "DataChanged",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "newMint",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "rewardAddr",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "RewardAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "tokenOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "operatorNotificationData",
+				"type": "bytes"
+			}
+		],
+		"name": "OperatorAuthorizationChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "tokenOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "notified",
+				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "operatorNotificationData",
+				"type": "bytes"
+			}
+		],
+		"name": "OperatorRevoked",
 		"type": "event"
 	},
 	{
@@ -108,41 +524,179 @@
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "pause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "Paused",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bool",
+				"name": "notify",
+				"type": "bool"
+			},
+			{
+				"internalType": "bytes",
+				"name": "operatorNotificationData",
+				"type": "bytes"
+			}
+		],
+		"name": "revokeOperator",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "sender",
+				"name": "addr",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
 			},
 			{
 				"indexed": true,
 				"internalType": "bytes32",
-				"name": "appId",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "Rewarded",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "dataKey",
 				"type": "bytes32"
 			},
 			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "metadata",
-				"type": "string"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "manager",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "bool",
-				"name": "status",
-				"type": "bool"
+				"internalType": "bytes",
+				"name": "dataValue",
+				"type": "bytes"
 			}
 		],
-		"name": "appAdded",
-		"type": "event"
+		"name": "setData",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "dataKeys",
+				"type": "bytes32[]"
+			},
+			{
+				"internalType": "bytes[]",
+				"name": "dataValues",
+				"type": "bytes[]"
+			}
+		],
+		"name": "setDataBatch",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "tokenIds",
+				"type": "bytes32[]"
+			},
+			{
+				"internalType": "bytes32[]",
+				"name": "dataKeys",
+				"type": "bytes32[]"
+			},
+			{
+				"internalType": "bytes[]",
+				"name": "dataValues",
+				"type": "bytes[]"
+			}
+		],
+		"name": "setDataBatchForTokenIds",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "dataKey",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes",
+				"name": "dataValue",
+				"type": "bytes"
+			}
+		],
+		"name": "setDataForTokenId",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newPrice",
+				"type": "uint256"
+			}
+		],
+		"name": "setPrice",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -156,11 +710,189 @@
 			{
 				"indexed": true,
 				"internalType": "bytes32",
-				"name": "appId",
+				"name": "tokenId",
 				"type": "bytes32"
 			}
 		],
-		"name": "likeAdded",
+		"name": "TicketAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "dataKey",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "dataValue",
+				"type": "bytes"
+			}
+		],
+		"name": "TokenIdDataChanged",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bool",
+				"name": "force",
+				"type": "bool"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"name": "transfer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "force",
+				"type": "bool"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "transferBalance",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address[]",
+				"name": "from",
+				"type": "address[]"
+			},
+			{
+				"internalType": "address[]",
+				"name": "to",
+				"type": "address[]"
+			},
+			{
+				"internalType": "bytes32[]",
+				"name": "tokenId",
+				"type": "bytes32[]"
+			},
+			{
+				"internalType": "bool[]",
+				"name": "force",
+				"type": "bool[]"
+			},
+			{
+				"internalType": "bytes[]",
+				"name": "data",
+				"type": "bytes[]"
+			}
+		],
+		"name": "transferBatch",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "Unpaused",
 		"type": "event"
 	},
 	{
@@ -169,202 +901,29 @@
 	},
 	{
 		"inputs": [],
-		"name": "URL",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "app",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "id",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "string",
-				"name": "metadata",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "manager",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "dt",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "status",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"name": "blockStorage",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "count",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "key",
-				"type": "bytes32"
-			}
-		],
-		"name": "delKey",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"name": "unpause",
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			}
-		],
-		"name": "getApp",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "id",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "string",
-						"name": "metadata",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "manager",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "dt",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "status",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct UpStore.AppStruct",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
+		"inputs": [],
+		"name": "withdraw",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
 		"inputs": [],
-		"name": "getAppList",
+		"name": "_tokenIdCounter",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "id",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "string",
-						"name": "metadata",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "manager",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "dt",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "status",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct UpStore.AppStruct[]",
-				"name": "",
-				"type": "tuple[]"
-			},
-			{
 				"internalType": "uint256",
-				"name": "total",
+				"name": "_value",
 				"type": "uint256"
 			}
 		],
@@ -372,8 +931,14 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getAppTotal",
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenOwner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -401,21 +966,83 @@
 		"inputs": [
 			{
 				"internalType": "bytes32",
-				"name": "appId",
+				"name": "dataKey",
+				"type": "bytes32"
+			}
+		],
+		"name": "getData",
+		"outputs": [
+			{
+				"internalType": "bytes",
+				"name": "dataValue",
+				"type": "bytes"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "dataKeys",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "getDataBatch",
+		"outputs": [
+			{
+				"internalType": "bytes[]",
+				"name": "dataValues",
+				"type": "bytes[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "tokenIds",
+				"type": "bytes32[]"
+			},
+			{
+				"internalType": "bytes32[]",
+				"name": "dataKeys",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "getDataBatchForTokenIds",
+		"outputs": [
+			{
+				"internalType": "bytes[]",
+				"name": "dataValues",
+				"type": "bytes[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
 				"type": "bytes32"
 			},
 			{
 				"internalType": "bytes32",
-				"name": "key",
+				"name": "dataKey",
 				"type": "bytes32"
 			}
 		],
-		"name": "getKey",
+		"name": "getDataForTokenId",
 		"outputs": [
 			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
+				"internalType": "bytes",
+				"name": "dataValue",
+				"type": "bytes"
 			}
 		],
 		"stateMutability": "view",
@@ -423,12 +1050,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "getLikeTotal",
+		"name": "getMetadata",
 		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "total",
-				"type": "uint256"
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
 			}
 		],
 		"stateMutability": "view",
@@ -438,16 +1065,16 @@
 		"inputs": [
 			{
 				"internalType": "bytes32",
-				"name": "appId",
+				"name": "tokenId",
 				"type": "bytes32"
 			}
 		],
-		"name": "getLikeTotal",
+		"name": "getOperatorsOf",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "address[]",
 				"name": "",
-				"type": "uint256"
+				"type": "address[]"
 			}
 		],
 		"stateMutability": "view",
@@ -455,27 +1082,124 @@
 	},
 	{
 		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "like",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			},
 			{
 				"internalType": "address",
-				"name": "sender",
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "getReward",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "tokenId",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"internalType": "struct CandyZap.Reward[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRewardList",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "tokenId",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					}
+				],
+				"internalType": "struct CandyZap.Reward[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "HOLDER_REWARD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
 				"type": "address"
 			},
 			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "isOperatorFor",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MAX_SUPPLY",
+		"outputs": [
+			{
 				"internalType": "uint256",
-				"name": "dt",
+				"name": "",
 				"type": "uint256"
 			}
 		],
@@ -497,6 +1221,19 @@
 	},
 	{
 		"inputs": [],
+		"name": "paused",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "price",
 		"outputs": [
 			{
@@ -509,173 +1246,72 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "metadata",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "rewards",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
 			},
 			{
 				"internalType": "address",
-				"name": "manager",
+				"name": "sender",
 				"type": "address"
 			}
 		],
-		"name": "setApp",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "key",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "string",
-				"name": "val",
-				"type": "string"
-			}
-		],
-		"name": "setKey",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			}
-		],
-		"name": "setLike",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "newPrice",
+				"name": "nonce",
 				"type": "uint256"
-			}
-		],
-		"name": "setPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "newUrl",
-				"type": "string"
-			}
-		],
-		"name": "setURL",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			}
-		],
-		"name": "toggleStatus",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "status",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address payable",
-				"name": "_to",
-				"type": "address"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_amount",
+				"name": "max",
 				"type": "uint256"
 			}
 		],
-		"name": "transfer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "rng",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
+				"internalType": "bytes4",
+				"name": "interfaceId",
+				"type": "bytes4"
 			}
 		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "string",
-				"name": "metadata",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "manager",
-				"type": "address"
-			}
-		],
-		"name": "updateApp",
+		"name": "supportsInterface",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -683,79 +1319,71 @@
 				"type": "bool"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "string",
-				"name": "metadata",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "updateMetadata",
+		"name": "tickets",
 		"outputs": [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "dt",
+				"type": "uint256"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32",
-				"name": "appId",
-				"type": "bytes32"
-			},
-			{
 				"internalType": "address",
-				"name": "manager",
+				"name": "tokenOwner",
 				"type": "address"
 			}
 		],
-		"name": "verifyManager",
+		"name": "tokenIdsOf",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "id",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "string",
-						"name": "metadata",
-						"type": "string"
-					},
-					{
-						"internalType": "address",
-						"name": "manager",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "dt",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "status",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct UpStore.AppStruct",
+				"internalType": "bytes32[]",
 				"name": "",
-				"type": "tuple"
+				"type": "bytes32[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "tokenId",
+				"type": "bytes32"
+			}
+		],
+		"name": "tokenOwnerOf",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -763,13 +1391,15 @@
 	},
 	{
 		"inputs": [],
-		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	}
 ]

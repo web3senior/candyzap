@@ -11,10 +11,7 @@ export default function About({ title }) {
           <div className="card__header">{title}</div>
           <div className="card__body">
             <ul className="d-flex flex-column" style={{ rowGap: `1rem`, listStyleType: 'space-counter' }}>
-              <li>
-                With CandyZap, every minting process (whether public or whitelist) means that 5% of the price will go straight to a lucky holder - chosen randomly by the CandyZap
-                contract.
-              </li>
+              <li>With CandyZap, 5% of the price goes to a random holder.</li>
               <li>
                 Everything operates through a verified and audited smart contract on the <b>LUKSO</b> network
               </li>

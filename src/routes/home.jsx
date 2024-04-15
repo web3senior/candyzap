@@ -9,6 +9,7 @@ import Lips from './../../src/assets/lips.svg'
 import Yummy from './../../src/assets/yummy.svg'
 import FivePercent from './../../src/assets/5percent.svg'
 import BannerPartyIcon from './../../src/assets/banner-party-icon.svg'
+import Banner from './../../src/assets/banner.png'
 import Web3 from 'web3'
 import ABI from './../abi/candyzap.json'
 import party from 'party-js'
@@ -42,12 +43,12 @@ function Home({ title }) {
   Title(title)
   const [loaderData, setLoaderData] = useState(useLoaderData())
   const [isLoading, setIsLoading] = useState(true)
-  const [app, setApp] = useState([])
-  const [backApp, setBackupApp] = useState([])
-  const [whitelist, setWhitelist] = useState()
-  const [recentApp, setRecentApp] = useState([])
-  const [candyPrimaryColor, setCandyPrimaryColor] = useState('#FE005B')
-  const [candySecondaryColor, setCandySecondaryColor] = useState('#FFF1F8')
+  const [price, setPrice] = useState(0)
+  const [totalSupply, setTotalSupply] = useState(0)
+  const [holderReward, setHolderReward] = useState(0)
+  const [maxSupply, setMaxSupply] = useState(0)
+  const [candyPrimaryColor, setCandyPrimaryColor] = useState('#59F235')
+  const [candySecondaryColor, setCandySecondaryColor] = useState('#0E852E')
   const auth = useAuth()
   const navigate = useNavigate()
   const txtSearchRef = useRef()
@@ -155,13 +156,6 @@ function Home({ title }) {
     return false
   }
 
-  const getAppList = async () => {
-    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
-    web3.eth.defaultAccount = auth.wallet
-    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_UPSTORE_CONTRACT_MAINNET)
-    return await UpstoreContract.methods.getAppList().call()
-  }
-
   const getLike = async (appId) => {
     let web3 = new Web3(import.meta.env.VITE_RPC_URL)
     const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_UPSTORE_CONTRACT_MAINNET)
@@ -177,9 +171,9 @@ function Home({ title }) {
     })
   }
 
-  const getRecentApp = async () => {
-    return await JSON.parse(localStorage.getItem(`appSeen`))
-  }
+  // const getRecentApp = async () => {
+  //   return await JSON.parse(localStorage.getItem(`appSeen`))
+  // }
   /**
    * Random Candy Color Generator
    */
@@ -191,30 +185,113 @@ function Home({ title }) {
     setCandySecondaryColor(`rgb(${rgb2})`)
   }
 
+  const getPrice = async () => {
+    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
+    web3.eth.defaultAccount = auth.wallet
+    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
+    return await UpstoreContract.methods.price().call()
+  }
+
+  const getTotalSupply = async () => {
+    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
+    web3.eth.defaultAccount = auth.wallet
+    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
+    return await UpstoreContract.methods.totalSupply().call()
+  }
+
+  const getHolderReward = async () => {
+    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
+    web3.eth.defaultAccount = auth.wallet
+    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
+    return await UpstoreContract.methods.HOLDER_REWARD().call()
+  }
+  const getMaxSupply = async () => {
+    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
+    web3.eth.defaultAccount = auth.wallet
+    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
+    return await UpstoreContract.methods.MAX_SUPPLY().call()
+  }
+
+  const handleMint = async (e) => {
+    const t = toast.loading(`Waiting for transaction's confirmation`)
+    e.target.innerText = `Waiting...`
+    const web3 = new Web3(window.ethereum)
+    if (typeof window.ethereum === 'undefined') window.open('https://chromewebstore.google.com/detail/universal-profiles/abpickdkkbnbcoepogfhkhennhfhehfn?hl=en-US&utm_source=candyzap.com', '_blank')
+
+    try {
+      window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then((accounts) => {
+          const account = accounts[0]
+          console.log(account)
+          // walletID.innerHTML = `Wallet connected: ${account}`;
+
+          web3.eth.defaultAccount = account
+          const Contract = new web3.eth.Contract(ABI, `0xF7D27236978cc4B4f3Ab469701EAfCD546B64B79`)
+          Contract.methods
+            .newMint()
+            .send({
+              from: account,
+              value: web3.utils.toWei('0.001', 'ether'),
+            })
+            .then((res) => {
+              console.log('Winner:' + res.events.Rewarded.returnValues[0])
+              // Run partyjs
+              party.confetti(document.querySelector(`header`), {
+                count: party.variation.range(20, 40),
+                shapes: ['Vector0', 'Vector1', 'Vector2', 'Vector3', 'Vector4', 'Vector5', 'Vector6', 'Vector7'],
+              })
+            })
+            .catch((error) => {
+              e.target.innerText = `Mint`
+              toast.dismiss(t)
+            })
+          // Stop loader when connected
+          //connectButton.classList.remove("loadingButton");
+        })
+        .catch((error) => {
+          e.target.innerText = `Mint`
+          // Handle error
+          console.log(error, error.code)
+          toast.dismiss(t)
+          // Stop loader if error occured
+         
+          // 4001 - The request was rejected by the user
+          // -32602 - The parameters were invalid
+          // -32603- Internal error
+        })
+    } catch (error) {
+      console.log(error)
+      toast.dismiss(t)
+      e.target.innerText = `Mint`
+    }
+  }
+
   useEffect(() => {
-    randomCandyColor()
+    // randomCandyColor()
 
-    party.confetti(document.querySelector(`header`), {
-      count: party.variation.range(20, 40),
-      shapes: ['Vector0', 'Vector1', 'Vector2', 'Vector3', 'Vector4', 'Vector5', 'Vector6', 'Vector7'],
+    getPrice().then(async (res) => {
+      setPrice(web3.utils.fromWei(res, 'ether'))
+      setIsLoading(false)
     })
 
-    // getAppList().then(async (res) => {
-    //   const responses = await Promise.all(
-    //     res[0].map(async (item) =>
-    //       Object.assign(await fetchIPFS(item.metadata), item, {
-    //         like: web3.utils.toNumber(await getLike(item.id)),
-    //       })
-    //     )
-    //   )
-    //   setApp(responses.filter((item) => item.status))
-    //   setBackupApp(responses)
-    //   setIsLoading(false)
+    getTotalSupply().then(async (res) => {
+      setTotalSupply(web3.utils.toNumber(res))
+      setIsLoading(false)
+    })
+
+    getHolderReward().then(async (res) => {
+      setHolderReward(web3.utils.toNumber(res))
+      setIsLoading(false)
+    })
+
+    getMaxSupply().then(async (res) => {
+      setMaxSupply(web3.utils.toNumber(res))
+      setIsLoading(false)
+    })
+    // getRecentApp().then((res) => {
+    //   setRecentApp(res)
     // })
-
-    getRecentApp().then((res) => {
-      setRecentApp(res)
-    })
   }, [])
 
   return (
@@ -255,7 +332,9 @@ function Home({ title }) {
               <img src={Yummy} />
             </figure>
 
-            <button className={`${styles['mint']} mt-20`}>Mint</button>
+            <button className={`${styles['mint']} mt-20`} onClick={(e) => handleMint(e)}>
+              Mint
+            </button>
           </div>
         </div>
 
@@ -263,19 +342,23 @@ function Home({ title }) {
           <div className={`${styles['statistics']} grid grid--fit`} style={{ '--data-width': '124px' }}>
             <div className={`${styles['statistics__card']}`}>
               <span>MAX supply</span>
-              <span>11,800</span>
+              <span>{maxSupply.toLocaleString()}</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
               <span>Holders</span>
-              <span>200</span>
+              <span>{totalSupply}</span>
+            </div>
+            <div className={`${styles['statistics__card']}`}>
+              <span>Reward</span>
+              <span>{holderReward}%</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
               <span>Public Mint</span>
-              <span>5 LYX</span>
+              <span>{price} LYX</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
-              <span>Whitelist Mint</span>
-              <span>3 LYX</span>
+              <span>Rewarded</span>
+              <span>{totalSupply}</span>
             </div>
           </div>
 
@@ -283,10 +366,20 @@ function Home({ title }) {
             <h3>
               <b>CandyZap</b>
             </h3>
-            <p>CandyZap is a unique collection of NFT 2.0 pixel art that randomly rewards holders. Each artwork is unique, consisting of a combination of 256^3 colors</p>
+            <p>CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.</p>
           </div>
 
-          <div className={`${styles['banner']} d-flex flex-column align-items-start`}>
+          <figure className=" ms-hiddenXlDown">
+            <Link to={`rules`} className={``}>
+              <img alt={`Banner`} src={Banner} />
+            </Link>
+          </figure>
+
+          <Link to={`rules`} className={`${styles['btn-rule']} ms-hiddenXxlUp`}>
+            Rules
+          </Link>
+
+          {/* <div className={`${styles['banner']}`} >
             <img src={BannerPartyIcon} alt={`Party Icon`} />
 
             <p> CandyZap NFT collection with a random holder reward system.</p>
@@ -308,7 +401,7 @@ function Home({ title }) {
             <Link to={`rules`} className={`${styles['rule']}`}>
               Rules
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
     </>

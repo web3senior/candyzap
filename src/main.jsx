@@ -17,8 +17,6 @@ import App, { loader as appLoader } from './routes/app.jsx'
 import About from './routes/about.jsx'
 import Rules from './routes/rules.jsx'
 
-console.log(`%c🆙`, 'font-size:5rem')
-
 const router = createBrowserRouter([
   {
     path: '/',
