@@ -4,7 +4,7 @@ import { Title } from './helper/DocumentTitle'
 import MaterialIcon from './helper/MaterialIcon'
 import Shimmer from './helper/Shimmer'
 import toast, { Toaster } from 'react-hot-toast'
-import { useAuth, web3, _ } from './../contexts/AuthContext'
+import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
 import Lips from './../../src/assets/lips.svg'
 import Yummy from './../../src/assets/yummy.svg'
 import FivePercent from './../../src/assets/5percent.svg'
@@ -43,10 +43,11 @@ function Home({ title }) {
   Title(title)
   const [loaderData, setLoaderData] = useState(useLoaderData())
   const [isLoading, setIsLoading] = useState(true)
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState()
   const [totalSupply, setTotalSupply] = useState(0)
   const [holderReward, setHolderReward] = useState(0)
   const [maxSupply, setMaxSupply] = useState(0)
+  const [winner, setWinner] = useState('')
   const [candyPrimaryColor, setCandyPrimaryColor] = useState('#59F235')
   const [candySecondaryColor, setCandySecondaryColor] = useState('#0E852E')
   const auth = useAuth()
@@ -185,41 +186,22 @@ function Home({ title }) {
     setCandySecondaryColor(`rgb(${rgb2})`)
   }
 
-  const getPrice = async () => {
-    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
-    web3.eth.defaultAccount = auth.wallet
-    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
-    return await UpstoreContract.methods.price().call()
-  }
-
-  const getTotalSupply = async () => {
-    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
-    web3.eth.defaultAccount = auth.wallet
-    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
-    return await UpstoreContract.methods.totalSupply().call()
-  }
-
-  const getHolderReward = async () => {
-    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
-    web3.eth.defaultAccount = auth.wallet
-    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
-    return await UpstoreContract.methods.HOLDER_REWARD().call()
-  }
-  const getMaxSupply = async () => {
-    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
-    web3.eth.defaultAccount = auth.wallet
-    const UpstoreContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
-    return await UpstoreContract.methods.MAX_SUPPLY().call()
-  }
+  const getPrice = async () => await CandyZapContract.methods.price().call()
+  const getTotalSupply = async () => await CandyZapContract.methods.totalSupply().call()
+  const getHolderReward = async () => await CandyZapContract.methods.HOLDER_REWARD().call()
+  const getMaxSupply = async () => await CandyZapContract.methods.MAX_SUPPLY().call()
 
   const handleMint = async (e) => {
+    if (!price) {
+      toast.error(`Can't read the mint price`)
+      return false
+    }
     const t = toast.loading(`Waiting for transaction's confirmation`)
     e.target.innerText = `Waiting...`
-    const web3 = new Web3(window.ethereum)
-    if (typeof window.ethereum === 'undefined') window.open('https://chromewebstore.google.com/detail/universal-profiles/abpickdkkbnbcoepogfhkhennhfhehfn?hl=en-US&utm_source=candyzap.com', '_blank')
+    if (typeof window.lukso === 'undefined') window.open('https://chromewebstore.google.com/detail/universal-profiles/abpickdkkbnbcoepogfhkhennhfhehfn?hl=en-US&utm_source=candyzap.com', '_blank')
 
     try {
-      window.ethereum
+      window.lukso
         .request({ method: 'eth_requestAccounts' })
         .then((accounts) => {
           const account = accounts[0]
@@ -227,14 +209,14 @@ function Home({ title }) {
           // walletID.innerHTML = `Wallet connected: ${account}`;
 
           web3.eth.defaultAccount = account
-          const Contract = new web3.eth.Contract(ABI, `0xF7D27236978cc4B4f3Ab469701EAfCD546B64B79`)
-          Contract.methods
+          CandyZapContract.methods
             .newMint()
             .send({
               from: account,
-              value: web3.utils.toWei('0.001', 'ether'),
+              value: web3.utils.toWei(price, 'ether'),
             })
             .then((res) => {
+              setWinner(res.events.Rewarded.returnValues[0])
               console.log('Winner:' + res.events.Rewarded.returnValues[0])
               // Run partyjs
               party.confetti(document.querySelector(`header`), {
@@ -255,7 +237,7 @@ function Home({ title }) {
           console.log(error, error.code)
           toast.dismiss(t)
           // Stop loader if error occured
-         
+
           // 4001 - The request was rejected by the user
           // -32602 - The parameters were invalid
           // -32603- Internal error
@@ -335,6 +317,15 @@ function Home({ title }) {
             <button className={`${styles['mint']} mt-20`} onClick={(e) => handleMint(e)}>
               Mint
             </button>
+
+            {winner && (
+              <h4 className={`mt-40`}>
+                <b>Winner has been rewarded:</b>{' '}
+                <a target={`_blank`} href={`https://wallet.universalprofile.cloud/${winner}?network=mainnet`}>
+                  {winner} 🍭
+                </a>
+              </h4>
+            )}
           </div>
         </div>
 
@@ -353,7 +344,7 @@ function Home({ title }) {
               <span>{holderReward}%</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
-              <span>Public Mint</span>
+              <span>Mint Price</span>
               <span>{price} LYX</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
