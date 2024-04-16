@@ -8,7 +8,7 @@ import LSP0ERC725Account from '@lukso/lsp-smart-contracts/artifacts/LSP0ERC725Ac
 import toast, { Toaster } from 'react-hot-toast'
 import Web3 from 'web3'
 
-export const PROVIDER = window.lukso
+export const PROVIDER = window.lukso || import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET
 export const web3 = new Web3(PROVIDER)
 export const CandyZapContract = new  web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
 export const _ = web3.utils._
