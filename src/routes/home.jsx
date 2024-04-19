@@ -350,16 +350,16 @@ function Home({ title }) {
               <span>{maxSupply.toLocaleString()}</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
+              <span>Mint Price</span>
+              <span>{price} LYX</span>
+            </div>
+            <div className={`${styles['statistics__card']}`}>
               <span>Holders</span>
               <span>{totalSupply}</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
               <span>Reward</span>
               <span>{holderReward}%</span>
-            </div>
-            <div className={`${styles['statistics__card']}`}>
-              <span>Mint Price</span>
-              <span>{price} LYX</span>
             </div>
             <div className={`${styles['statistics__card']}`}>
               <span>Rewarded</span>
