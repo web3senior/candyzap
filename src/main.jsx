@@ -16,6 +16,7 @@ import Home, { loader as homeLoader } from './routes/home.jsx'
 import App, { loader as appLoader } from './routes/app.jsx'
 import About from './routes/about.jsx'
 import Rules from './routes/rules.jsx'
+import Rewarded from './routes/rewarded.jsx'
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         {
         path: 'Rules',
         element: <Rules title={`Rules`} />,
+      },
+      {
+        path: 'rewarded',
+        element: <Rewarded title={`Rewarded`} />,
       },
       {
         path: 'whitelist',

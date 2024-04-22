@@ -321,6 +321,10 @@ function Home({ title }) {
               Mint
             </button>
 
+              <Link to={`rewarded`} className={`${styles['btn-rewarded-link']} mt-20`}>
+              View Rewarded List
+            </Link>
+
             {winner && (
               <h4 className={`mt-40`}>
                 <b>Winner has been rewarded:</b>{' '}
