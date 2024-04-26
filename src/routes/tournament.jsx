@@ -141,7 +141,7 @@ export default function Tournament({ title }) {
                         )}
                       </div>
                       <div className={`card__body`} style={{ height: '600px' }}>
-                        {token && token.length > 0 && <iframe src={`./../../public/sweet-match/index.html`} />}
+                        {token && token.length > 0 && <iframe src={`./sweet-match/index.html`} />}
                         {token && token.length < 1 && (
                           <>
                             <p className={`${styles['error-alert']}`}>
