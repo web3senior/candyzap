@@ -112,7 +112,6 @@ export default function Tournament({ title }) {
                           <thead style={{ position: 'sticky', top: '0' }}>
                             <tr>
                               <th className="text-left">User</th>
-                              <th>Level</th>
                               <th>Score</th>
                               <th>At</th>
                             </tr>
@@ -131,7 +130,6 @@ export default function Tournament({ title }) {
                                       </div>
                                       <span>{item.counter}-time played</span>
                                     </td>
-                                    <td className="text-center">{++item.level_number}</td>
                                     <td className="text-center">{item.max_score}</td>
                                     <td className="text-center" width="10">
                                       <span className="badge badge-light">{item.dt}</span>
