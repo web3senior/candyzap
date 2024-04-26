@@ -128,10 +128,11 @@ export function AuthProvider({ children }) {
           fetchProfile(addr).then((res) => setProfile(res))
         } else if (location.pathname !== '/') {
           window.location.href = '/'
-          
         }
         setLoading(false)
       })
+    } else {
+      setLoading(false)
     }
   }, [])
 
