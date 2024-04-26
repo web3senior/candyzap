@@ -30,6 +30,17 @@ export default function Tournament({ title }) {
 
   const getTokenIdsOf = async (addr) => await CandyZapContract.methods.tokenIdsOf(addr).call()
 
+  const getLeaderboardAndUP = () => {
+    setLeaderboard([])
+    getLeaderboard(params.id).then(async (res) => {
+      const responses = await Promise.all(res.map(async (item) => Object.assign(await auth.fetchProfile(item.wallet_addr), item)))
+      console.log(responses)
+      setLeaderboard((leaderboard) => leaderboard.concat(responses))
+
+      setIsLoading(false)
+    })
+  }
+
   useEffect(() => {
     getTournament().then(async (res) => {
       setTournament(res)
@@ -40,13 +51,7 @@ export default function Tournament({ title }) {
       setToken(res)
     })
 
-    getLeaderboard(params.id).then(async (res) => {
-      const responses = await Promise.all(res.map(async (item) => Object.assign(await auth.fetchProfile(item.wallet_addr), item)))
-      console.log(responses)
-      setLeaderboard((leaderboard) => leaderboard.concat(responses))
-
-      setIsLoading(false)
-    })
+    getLeaderboardAndUP()
 
     localStorage.setItem('tournamentId', params.id)
   }, [])
@@ -73,6 +78,8 @@ export default function Tournament({ title }) {
                             <p>
                               Prize: <b>{item.prize}</b> 💰
                             </p>
+
+                            <div className="alert alert--dnger">Expiration: {item.end_date}</div>
                           </div>
                         </div>
                       </div>
@@ -94,7 +101,12 @@ export default function Tournament({ title }) {
                     </div>
 
                     <div className={`card mt-20`}>
-                      <div className={`card__header`}>Leaderboard [10 Top Users]</div>
+                      <div className={`card__header d-flex align-items-center justify-content-between`}>
+                        Leaderboard [10 Top Users]
+                        <button className={`${styles['btn-refresh']}`} onClick={() => getLeaderboardAndUP()}>
+                          Refresh
+                        </button>
+                      </div>
                       <div className={`card__body`} style={{ maxHeight: '300px', overflowY: 'scroll' }}>
                         <table>
                           <thead style={{ position: 'sticky', top: '0' }}>
@@ -117,7 +129,7 @@ export default function Tournament({ title }) {
                                       <div>
                                         <b>@{item.LSP3Profile.name}</b>
                                       </div>
-                                      <span>{item.counter} times played</span>
+                                      <span>{item.counter}-time played</span>
                                     </td>
                                     <td className="text-center">{++item.level_number}</td>
                                     <td className="text-center">{item.max_score}</td>
