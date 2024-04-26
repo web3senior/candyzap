@@ -117,9 +117,10 @@ export default function Tournament({ title }) {
                                       <div>
                                         <b>@{item.LSP3Profile.name}</b>
                                       </div>
+                                      <span>{item.counter} times played</span>
                                     </td>
                                     <td className="text-center">{++item.level_number}</td>
-                                    <td className="text-center">{item.score}</td>
+                                    <td className="text-center">{item.max_score}</td>
                                     <td className="text-center" width="10">
                                       <span className="badge badge-light">{item.dt}</span>
                                     </td>
