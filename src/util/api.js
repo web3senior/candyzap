@@ -2,13 +2,13 @@
  * u
  * @returns
  */
-export async function getApp(filter='') {
+export async function getTournament(filter = '') {
   let requestOptions = {
     method: 'GET',
     redirect: 'follow',
   }
   const params = new URLSearchParams({ filter: filter }).toString()
-  const response = await fetch(`${import.meta.env.VITE_API_URL}app/get?${params}`, requestOptions)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}tournament?${params}`, requestOptions)
   if (!response.ok) throw new Response('Failed to get data', { status: 500 })
   return response.json()
 }
@@ -17,13 +17,12 @@ export async function getApp(filter='') {
  * Dashboard
  * @returns
  */
-export async function getDashboard(wallet_addr) {
+export async function getLeaderboard(tournamentId) {
   let requestOptions = {
     method: 'GET',
     redirect: 'follow',
   }
-  const params = new URLSearchParams({ wallet_addr: wallet_addr }).toString()
-  const response = await fetch(`${import.meta.env.VITE_API_URL}dashboard?${params}`, requestOptions)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}leaderboard/${tournamentId}`, requestOptions)
   if (!response.ok) throw new Response('Failed to get data', { status: 500 })
   return response.json()
 }
@@ -151,7 +150,6 @@ export async function checkUser(post, wallet_addr) {
   if (!response.ok) throw new Response('Failed to get data', { status: 500 })
   return response.json()
 }
-
 
 /**
  * Update username

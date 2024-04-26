@@ -10,7 +10,7 @@ import Web3 from 'web3'
 
 export const PROVIDER = window.lukso || import.meta.env.VITE_RPC_URL
 export const web3 = new Web3(PROVIDER)
-export const CandyZapContract = new  web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
+export const CandyZapContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
 export const _ = web3.utils._
 
 export const AuthContext = React.createContext()
@@ -123,8 +123,14 @@ export function AuthProvider({ children }) {
       isWalletConnected().then((addr) => {
         if (addr !== undefined) {
           setWallet(addr)
+          localStorage.setItem(`wallet_addr`, addr)
+          setLoading(false)
           fetchProfile(addr).then((res) => setProfile(res))
+        } else if (location.pathname !== '/') {
+          window.location.href = '/'
+          
         }
+        setLoading(false)
       })
     }
   }, [])
@@ -140,6 +146,8 @@ export function AuthProvider({ children }) {
     connectWallet,
     logout,
   }
+
+  if (loading) return <small>Loading in Auth Context...</small>
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

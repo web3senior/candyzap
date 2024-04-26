@@ -1,0 +1,123 @@
+@import './../styles/components/responsive';
+
+$width: 124px;
+$height: $width;
+
+.section {
+  height: inherit;
+
+  p {
+    line-height: 20px;
+  }
+
+  .card {
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+figure.pfp {
+  column-gap: 1rem;
+  background-image: url('./../assets/inner-candy.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  figcaption {
+    font-weight: bold;
+  }
+
+  img {
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+    border-radius: inherit;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 999px;
+  }
+}
+
+.congrats {
+background: #D6FAEA;
+  color: #048f53;
+}
+
+.github-card {
+  background: rgba(0, 195, 160, 0.06);
+  border-radius: var(--global-border-radius);
+}
+
+.github-card__body {
+  padding: 2rem 2.5rem;
+  color: #00c3a0;
+  font-weight: 500;
+}
+
+.btn-refresh {
+  border: none;
+  background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+  border-radius: 4px;
+  box-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff, 0 1px 2px 1px rgba(30, 35, 90, 0.4);
+  padding: 0.3rem 0.3rem;
+  cursor: pointer;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  &:active {
+    transform: translateY(0.1em);
+  }
+}
+
+.grid {
+  gap: 1rem;
+}
+
+.grid__item {
+  position: relative;
+  padding: 1rem 0;
+  transition: all ease-in-out 0.12s;
+  overflow: hidden;
+
+  &:hover {
+    transform: scale(1.4);
+    background-color: rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(4px);
+  }
+  a {
+    position: relative;
+    color: var(--black) !important;
+
+    .counter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-family: 'ArcadeClassic';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1.4rem;
+    }
+    b {
+      max-width: 100%;
+      font-size: 14px;
+    }
+    .amount {
+      background-color: #fe005b;
+      padding: 0.2rem 1rem;
+      color: var(--white);
+      border-radius: 999px;
+    }
+  }
+}

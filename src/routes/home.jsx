@@ -3,6 +3,7 @@ import { useLoaderData, defer, Form, Await, useRouteError, Link, useNavigate } f
 import { Title } from './helper/DocumentTitle'
 import MaterialIcon from './helper/MaterialIcon'
 import Shimmer from './helper/Shimmer'
+import { getTournament } from './../util/api'
 import toast, { Toaster } from 'react-hot-toast'
 import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
 import Lips from './../../src/assets/lips.svg'
@@ -43,6 +44,7 @@ function Home({ title }) {
   Title(title)
   const [loaderData, setLoaderData] = useState(useLoaderData())
   const [isLoading, setIsLoading] = useState(true)
+  const [tournament, setTournament] = useState()
   const [price, setPrice] = useState()
   const [totalSupply, setTotalSupply] = useState(0)
   const [holderReward, setHolderReward] = useState(0)
@@ -255,6 +257,11 @@ function Home({ title }) {
   useEffect(() => {
     // randomCandyColor()
 
+    getTournament().then(async (res) => {
+      setTournament(res)
+      setIsLoading(false)
+    })
+
     getPrice().then(async (res) => {
       setPrice(web3.utils.fromWei(res, 'ether'))
       setIsLoading(false)
@@ -321,7 +328,7 @@ function Home({ title }) {
               Mint
             </button>
 
-              <Link to={`rewarded`} className={`${styles['btn-rewarded-link']} mt-20`}>
+            <Link to={`rewarded`} className={`${styles['btn-rewarded-link']} mt-20`}>
               View Rewarded List
             </Link>
 
@@ -369,6 +376,33 @@ function Home({ title }) {
               <span>Rewarded</span>
               <span>{totalSupply}</span>
             </div>
+          </div>
+
+          <div className="mt-40 mb-40">
+            <h3>
+              <b>Active Tournament</b>
+            </h3>
+
+            {tournament &&
+              tournament.map((item, i) => {
+                return (
+                  <div key={i}>
+                    <p>
+                      <b>{item.name}</b>
+                    </p>
+                    <p>{item.description}</p>
+                    <p>
+                      Prize: <b>{item.prize}</b> 💰
+                    </p>
+                    {!auth.wallet && <b>Connect wallet and play!</b>}
+                    {auth.wallet && (
+                      <Link to={`play/tournament/${item.id}`} className={`btn`}>
+                        <span style={{ color: '#fff' }}>Play NOW!</span>
+                      </Link>
+                    )}
+                  </div>
+                )
+              })}
           </div>
 
           <div className="mt-40 mb-40">
