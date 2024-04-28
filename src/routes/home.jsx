@@ -462,7 +462,7 @@ function Home({ title }) {
                     <img alt={`Holders`} src={RewardedIcon} />
                   </figure>
                   <b>{totalSupply}</b>
-                  <span>1 winner per mint</span>
+                  <span>1 random winner per mint</span>
                 </div>
               </div>
             </div>
