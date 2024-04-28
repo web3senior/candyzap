@@ -33,6 +33,7 @@ export default function Tournament({ title }) {
   const getLeaderboardAndUP = () => {
     setLeaderboard([])
     getLeaderboard(params.id).then(async (res) => {
+      console.log(res)
       const responses = await Promise.all(res.map(async (item) => Object.assign(await auth.fetchProfile(item.wallet_addr), item)))
       console.log(responses)
       setLeaderboard((leaderboard) => leaderboard.concat(responses))

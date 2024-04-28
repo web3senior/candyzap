@@ -1,77 +1,76 @@
 /*Badges*/
 .badge {
-    display: inline-block;
-    padding: .25em .4em;
-    font-size: 75%;
-    font-weight: 200;
-    line-height: 1;
-    border: 1px solid;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25rem;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, .075);
+  display: inline-block;
+  padding: 0em 0.4em 0.20em 0.4em;
+  font-size: 75%;
+  font-weight: 200;
+  border: 1px solid;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .badge-pill {
-    padding-right: .6em;
-    padding-left: .6em;
-    border-radius: 10rem;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem;
 }
 
 .badge-up {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    border-radius: 50%;
-    font-size: 12px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border-radius: 50%;
+  font-size: 12px;
 }
 
 .badge-primary {
-    color: #034f8d;
-    border-color:#008cff;
-    background-color: #b2d6f3;
+  color: #034f8d;
+  border-color: #008cff;
+  background-color: #b2d6f3;
 }
 
 .badge-secondary {
-    color: #fff;
-    background-color: #75808a;
+  color: #fff;
+  background-color: #75808a;
 }
 
 .badge-success {
-    color: #008024;
-    border-color: #00E440;
-    background-color: #B3FFC8;
+  color: #008024;
+  border-color: #00df80;
+  background-color: #d6faea;
 }
 
 .badge-danger {
-    color: #d40236;
-    border-color: #F92F60;
-    background-color: #ffdddf;
+  color: #d40236;
+  border-color: #f92f60;
+  background-color: #ffdddf;
 }
 
 .badge-warning {
-    color: #807A00;
-    border-color: #E4DB00;
-    background-color: #FFFCB3;
+  color: #807a00;
+  border-color: #e4db00;
+  background-color: #fffcb3;
 }
 
 .badge-info {
-    color: #fff;
-    background-color: #0dceec;
+  color: #fff;
+  background-color: #0dceec;
 }
 
 .badge-light {
-    color: #212529;
-    background-color: #e9eaea;
+  color: #212529;
+  background-color: #e9eaea;
 }
 
 .badge-dark {
-    color: #fff;
-    background-color: #223035;
+  color: #fff;
+  background-color: #223035;
 }
 
 .badge-purpink {
-    color: #fff;
-    background-color: #7f00ff;
+  color: #fff;
+  background-color: #7f00ff;
 }

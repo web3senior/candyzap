@@ -1,12 +1,12 @@
 :root {
-  font-family: 'Open Sans', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--ff-segoe);
   line-height: 1.5;
   font-weight: 400;
   font-size: 13px;
 
   // color-scheme: light dark;
   // color: rgba(255, 255, 255, 0.87);
-  background:#FFEC19;
+  background: #ffec19;
   -webkit-tap-highlight-color: transparent;
 
   font-synthesis: none;

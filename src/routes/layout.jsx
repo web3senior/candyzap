@@ -6,6 +6,7 @@ import MaterialIcon from './helper/MaterialIcon'
 import Shimmer from './helper/Shimmer'
 import styles from './Layout.module.scss'
 import Logo from './../../src/assets/logo.svg'
+import CandyZapTypo from './../../src/assets/candyzap-typo.svg'
 import Aratta from './../../src/assets/aratta.svg'
 import Lukso from './../../src/assets/lukso.svg'
 import telegramIcon from './../../src/assets/telegram.svg'
@@ -18,16 +19,28 @@ party.resolvableShapes['Lukso'] = `<img src="${Lukso}"/>`
 
 let links = [
   {
-    name: 'Submit your dApp',
+    name: 'Home',
     icon: null,
-    target: '_blank',
-    path: `https://docs.google.com/forms/d/e/1FAIpQLScUYz_4VjdcB9bMOilhN67cFdzF1U7XZ1o0XqQYkaxThwTijA/viewform`,
+    target: '',
+    path: `/`,
   },
+  {
+    name: 'Rewarded List',
+    icon: null,
+    target: '',
+    path: `rewarded`,
+  },
+  // {
+  //   name: 'Tournaments',
+  //   icon: null,
+  //   target: '',
+  //   path: `tournament`,
+  // },
   {
     name: 'Contract',
     icon: null,
     target: '_blank',
-    path: `https://explorer.execution.mainnet.lukso.network/address/${import.meta.env.VITE_UPSTORE_CONTRACT_MAINNET}`,
+    path: `https://explorer.execution.mainnet.lukso.network/address/${import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET}?tab=read_contract`,
   },
 ]
 
@@ -46,14 +59,28 @@ export default function Root() {
       <div className={styles.layout}>
         <header className={`${styles.header}`}>
           <div className={`__container d-flex flex-row align-items-center justify-content-between`} data-width={`xlarge`}>
-            <Link to={`/`}>
-              <div className={`d-flex flex-row align-items-center justify-content-start`} style={{ columnGap: `1rem` }}>
-                <figure>
-                  <img src={Logo} />
-                </figure>
-                <b>{import.meta.env.VITE_TITLE}</b>
-              </div>
-            </Link>
+            <div className={`${styles['left-side']} d-flex flex-row align-items-center justify-content-start`}>
+              <Link to={`/`}>
+                <div className={`d-flex flex-row align-items-center justify-content-start`} style={{ columnGap: `1rem` }}>
+                  <figure>
+                    <img alt={import.meta.env.VITE_TITLE} src={Logo} />
+                  </figure>
+                  <img src={CandyZapTypo} />
+                </div>
+              </Link>
+
+              <ul className={`${styles['nav']} d-flex flex-row align-items-center justify-content-start`}>
+                {links.map((item, i) => {
+                  return (
+                    <li key={i}>
+                      <NavLink to={item.path} target={item.target}>
+                        {item.name}
+                      </NavLink>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
 
             <div className={`d-flex align-items-center justify-content-end`}>
               <div className={`d-flex flex-row align-items-center justify-content-end`}>

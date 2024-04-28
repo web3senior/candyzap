@@ -5,7 +5,7 @@ $height: $width;
 
 .section {
   height: inherit;
-
+  padding: 1rem 0;
   p {
     line-height: 20px;
   }
@@ -47,7 +47,7 @@ figure.pfp {
 }
 
 .congrats {
-background: #D6FAEA;
+  background: #d6faea;
   color: #048f53;
 }
 

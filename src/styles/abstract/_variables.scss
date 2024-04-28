@@ -165,8 +165,9 @@
   --gm-neutral-highlight-color: #f8f9fa;
   --gm-neutral-outline-color: #dadce0;
 
-  --color-primary: #FD1669;
+  --color-primary: #FFEC19;
   --color-secondary: #FDC5EC;
+  --color-tertiary: #FE005B;
 
   --text-color-pale: #8091a7;
   --icon-color: #2d3758;
@@ -209,22 +210,23 @@
   --ff-sans: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Liberation Sans', sans-serif;
   --ff-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
   --ff-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'Liberation Mono', Menlo, Monaco, Consolas, monospace;
+  --ff-segoe: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   --theme-body-font-family: var(--ff-sans);
   --body-background-color: #f3f3f3;
   --gradient-primary: linear-gradient(180deg, #fdc5ec 34.5%, #ecf134 86.5%);
 }
 
-.primary-color {
+.color-primary {
   color: var(--color-primary);
 }
 
-.secondary-color {
-  color: var(--secondary-color);
+.color-secondary {
+  color: var(--color-secondary);
 }
 
-.third-color {
-  color: var(--tertiary-color);
+.color-tertiary {
+  color: var(--color-tertiary);
 }
 
-$primary-color: #e70b27;
+$colorPrimary: #e70b27;
 $white: #fff;

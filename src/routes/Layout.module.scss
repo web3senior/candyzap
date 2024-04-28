@@ -22,6 +22,7 @@
     padding: 1rem;
     width: 100%;
     padding: 2rem;
+    background-color: var(--white);
 
     button {
       box-shadow: none;
@@ -41,6 +42,10 @@
 
     a[class='active'] {
       font-weight: bold;
+      padding: 2px 8px;
+      background: #0f0f0f;
+      border-radius: 999px;
+      color: var(--white);
     }
 
     .connect-button {
@@ -82,7 +87,7 @@
       transition: background-color 250ms ease 0s, filter 250ms ease 0s;
     }
 
-    .left {
+    .left-side {
       column-gap: 2.5rem;
     }
 

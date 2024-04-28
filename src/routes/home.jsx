@@ -8,6 +8,14 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
 import Lips from './../../src/assets/lips.svg'
 import Yummy from './../../src/assets/yummy.svg'
+
+import MaxSupplyIcon from './../../src/assets/max-supply.svg'
+import MintPriceIcon from './../../src/assets/mint-price.svg'
+import HoldersIcon from './../../src/assets/holders.svg'
+import RewardedIcon from './../../src/assets/rewarded.svg'
+import BackToHoldersIcon from './../../src/assets/back-to-holders.svg'
+import TerophyIcon from './../../src/assets/teroph-icon.svg'
+
 import FivePercent from './../../src/assets/5percent.svg'
 import BannerPartyIcon from './../../src/assets/banner-party-icon.svg'
 import Banner from './../../src/assets/banner.png'
@@ -189,8 +197,11 @@ function Home({ title }) {
   }
 
   const getPrice = async () => await CandyZapContract.methods.price().call()
+
   const getTotalSupply = async () => await CandyZapContract.methods.totalSupply().call()
+
   const getHolderReward = async () => await CandyZapContract.methods.HOLDER_REWARD().call()
+
   const getMaxSupply = async () => await CandyZapContract.methods.MAX_SUPPLY().call()
 
   const handleMint = async (e) => {
@@ -254,11 +265,43 @@ function Home({ title }) {
     }
   }
 
+  const startCountdown = async (date, id) => {
+    var countDownDate = new Date(new Date(date).getTime())
+    timer = setInterval(() => {
+      // if (!timerRef.current) clearInterval(timer)
+      var now = new Date().getTime()
+      var distance = countDownDate - now
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24))
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+      // Display the result in the element with id="demo"
+      document.querySelector(`#countdown${id}`).innerHTML = `
+      <ul class="d-flex">
+      <li><span>${days}</span><span>d</span>:</li>
+      <li><span>${hours}</span><span>h</span>:</li>
+      <li><span>${minutes}</span><span>m</span>:</li>
+      <li><span>${seconds}</span><span>s</span></li>
+      </ul>
+      `
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(timer)
+        setIsExpired(true)
+        document.querySelector(`#countdown${id}`).innerHTML = `<p class="text-center"><b>EXPIRED 🆙</b></p>`
+      }
+    }, 1000)
+  }
   useEffect(() => {
     // randomCandyColor()
 
     getTournament().then(async (res) => {
       setTournament(res)
+      startCountdown(res[0].end_date, res[0].id)
       setIsLoading(false)
     })
 
@@ -324,13 +367,13 @@ function Home({ title }) {
               <img src={Yummy} />
             </figure>
 
+            <p style={{ maxWidth: '500px' }} className="text-center">
+              CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.
+            </p>
+
             <button className={`${styles['mint']} mt-20`} onClick={(e) => handleMint(e)}>
               Mint
             </button>
-
-            <Link to={`rewarded`} className={`${styles['btn-rewarded-link']} mt-20`}>
-              View Rewarded List
-            </Link>
 
             {winner && (
               <h4 className={`mt-40`}>
@@ -354,108 +397,185 @@ function Home({ title }) {
           </div>
         </div>
 
-        <div className={`__container`} data-width={`large`}>
-          <div className={`${styles['statistics']} grid grid--fit`} style={{ '--data-width': '124px' }}>
-            <div className={`${styles['statistics__card']}`}>
-              <span>MAX supply</span>
-              <span>{maxSupply.toLocaleString()}</span>
-            </div>
-            <div className={`${styles['statistics__card']}`}>
-              <span>Mint Price</span>
-              <span>{price} LYX</span>
-            </div>
-            <div className={`${styles['statistics__card']}`}>
-              <span>Holders</span>
-              <span>{totalSupply}</span>
-            </div>
-            <div className={`${styles['statistics__card']}`}>
-              <span>Reward</span>
-              <span>{holderReward}%</span>
-            </div>
-            <div className={`${styles['statistics__card']}`}>
-              <span>Rewarded</span>
-              <span>{totalSupply}</span>
+        <div className={`${styles['statistics']} `}>
+          <div className={`__container`} data-width={`large`}>
+            <div className={`${styles['statistics__grid']} grid grid--fit`} style={{ '--data-width': '140px' }}>
+              <div className={`${styles['statistics__card']}`}>
+                <div className={`${styles['statistics__card__header']}`}>
+                  <div>Max Supply</div>
+                </div>
+                <div className={`${styles['statistics__card__body']}`}>
+                  <figure>
+                    <img alt={`Max Supply`} src={MaxSupplyIcon} />
+                  </figure>
+                  <b>{maxSupply.toLocaleString()}</b>
+                  <span>Max supply of token</span>
+                </div>
+              </div>
+
+              <div className={`${styles['statistics__card']}`}>
+                <div className={`${styles['statistics__card__header']}`}>
+                  <div>Mint Price</div>
+                </div>
+                <div className={`${styles['statistics__card__body']}`}>
+                  <figure>
+                    <img alt={`Mint Price`} src={MintPriceIcon} />
+                  </figure>
+                  <b>{price}LYX</b>
+                  <span>Per token</span>
+                </div>
+              </div>
+
+              <div className={`${styles['statistics__card']}`}>
+                <div className={`${styles['statistics__card__header']}`}>
+                  <div>Holders</div>
+                </div>
+                <div className={`${styles['statistics__card__body']}`}>
+                  <figure>
+                    <img alt={`Holders`} src={HoldersIcon} />
+                  </figure>
+                  <b>{totalSupply}</b>
+                  <span>Total owner</span>
+                </div>
+              </div>
+
+              <div className={`${styles['statistics__card']}`}>
+                <div className={`${styles['statistics__card__header']}`}>
+                  <div>Back To holders</div>
+                </div>
+                <div className={`${styles['statistics__card__body']}`}>
+                  <figure>
+                    <img alt={`Back To holders`} src={BackToHoldersIcon} />
+                  </figure>
+                  <b>{holderReward}%</b>
+                  <span>{holderReward}% of mint price</span>
+                </div>
+              </div>
+
+              <div className={`${styles['statistics__card']}`}>
+                <div className={`${styles['statistics__card__header']}`}>
+                  <div>Rewarded</div>
+                </div>
+
+                <div className={`${styles['statistics__card__body']}`}>
+                  <figure>
+                    <img alt={`Holders`} src={RewardedIcon} />
+                  </figure>
+                  <b>{totalSupply}</b>
+                  <span>1 winner per mint</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="mt-40 mb-40">
-            <h3>
-              <b>Active Tournament</b>
-            </h3>
+          <div className={`__container`} data-width={`large`}>
+            <div className={`${styles['tournament']} d-flex flex-row flex-wrap  align-items-start justify-content-between`}>
+              <div>
+                <h1>
+                  Stay tuned with <br />
+                  <span>Tournaments</span>
+                </h1>
+                <svg width="213" height="218" viewBox="0 0 213 218" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M147.069 12.5682V0L57.9096 0V12.5682H49.0343V14.8241H48.4003V23.2029H36.0383V37.7047H24.6273V48.3276H12.6279V76.339H0L0 137.336H12.6279L12.6279 165.076H23.3594V191.191H34.7704L34.7704 205.693H47.1324V218H172.11V206.015H184.789V193.125H213V176.922H177.726V189.813H151.734V201.797H79.5539V189.168H50.7092V159.52H39.2982V131.161H28.5667L28.5667 83.2333H40.566L40.566 55.841H51.9771V42.306L64.3391 42.306V28.7709L143.499 28.7709V49.8796H156.127V75.8699H168.277V106.991H156.172V133.739H129.863V146.229H106.18V133.539H92.8668L92.8668 120.848H79.2369V109.064H64.7283V96.0432H79.0782V68.4092H116.521V82.621L129.171 82.621L129.202 92.5842L117.094 92.5842V106.669H105.863V92.8116V78.9543H89.924V92.5842V110.626H97.5313V122.872H117.139V122.888L133.078 122.888V109.672L145.192 109.634L145.168 101.778V92.5842H145.14L145.088 75.0918V66.4183H132.46V52.9962H132.112V52.2065H120.127V39.9606H84.8524V52.2065L63.2381 52.2065V52.4126H63.1394L63.1394 79.6598H48.7173V95.8625H48.7896V125.63H61.0793V137.051H73.4413V149.741H84.8524V162.431H159.431V149.942H172.427V141.563H184.215V115.875H196.173V65.8348H184.215V39.316H172.065V26.1519L159.437 26.1519V12.7298H157.213V12.5682H147.069Z"
+                    fill="#FFFDC1"
+                  />
+                </svg>
+              </div>
 
-            {tournament &&
-              tournament.map((item, i) => {
-                return (
-                  <div key={i}>
-                    <p>
-                      <b>{item.name}</b>
-                    </p>
-                    <p>{item.description}</p>
-                    <p>
-                      Prize: <b>{item.prize}</b> 💰
-                    </p>
-                    {!auth.wallet && <b>Connect wallet and play!</b>}
-                    {auth.wallet && (
-                      <Link to={`play/tournament/${item.id}`} className={`btn`}>
-                        <span style={{ color: '#fff' }}>Play NOW!</span>
-                      </Link>
-                    )}
-                  </div>
-                )
-              })}
+              <div className={`${styles['tournament__list']} d-flex flex-column align-items-stretch justify-content-stretch`}>
+                <div>
+                  {tournament &&
+                    tournament.map((item, i) => {
+                      return (
+                        <div className={`${styles['tournament-card']}`} key={i}>
+                          <div className={`${styles['tournament-card__start']} d-flex flex-row align-items-center`}>
+                            <figure>
+                              <img alt={item.sponser_name} src={`${item.pfp}`} />
+                              <span
+                                onClick={() => {
+                                  toast(`Sponser of ${item.name}`, {
+                                    icon: '💰',
+                                  })
+                                }}
+                              />
+                            </figure>
+
+                            <ul className={`d-flex flex-column align-items-start justify-content-center`}>
+                              <li>
+                                <b>{item.name}</b>
+                              </li>
+                              <li>{item.status ? <span className="badge badge-pill badge-success">open</span> : <span className="badge badge-pill badge-danger">close</span>}</li>
+                              <li className={`${styles['prize']}`}>{item.prize}</li>
+                            </ul>
+                          </div>
+
+                          <ul className={`${styles['tournament-card__middle']} d-flex flex-row`}>
+                            <li>
+                              <span>{item.total_players}</span>
+                              <span>Players</span>
+                            </li>
+                            <li>
+                              <span>1</span>
+                              <span>Pass Token</span>
+                            </li>
+                            <li>
+                              <span>{parseInt(item.highest_score).toLocaleString()}</span>
+                              <span>Highest Score</span>
+                            </li>
+                          </ul>
+
+                          <div className={`${styles['tournament-card__action']} d-flex flex-row`}>
+                            <ul className={`d-flex flex-column align-items-center`}>
+                              <li className={`d-flex flex-row`}>
+                                <button className={`${styles['tournament-card__action__btn']}`}>
+                                  <img src={TerophyIcon} />
+                                  Winner
+                                </button>
+                              </li>
+                              <li>
+                                <div className={`${styles['tournament-card__action__countdown']}`} id={`countdown${item.id}`}></div>
+                              </li>
+                            </ul>
+                          </div>
+
+                          <Link to={`play/tournament/${item.id}`}>
+                            <span className={`color-tertiary`}>JOIN</span>
+                          </Link>
+                        </div>
+                      )
+                    })}
+                </div>
+
+                <SponserAd />
+                <SponserAd />
+              </div>
+            </div>
+
+            <figure className=" ms-hiddenXlDown mt-40">
+              <Link to={`rules`} className={``}>
+                <img alt={`Banner`} src={Banner} />
+              </Link>
+            </figure>
           </div>
-
-          <div className="mt-40 mb-40">
-            <h3>
-              <b>CandyZap</b>
-            </h3>
-            <p>CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.</p>
-            <a
-              target={`_blank`}
-              className="btn"
-              style={{ color: 'white' }}
-              href={`https://explorer.execution.mainnet.lukso.network/address/${import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET}?tab=read_contract`}
-            >
-              View Verified Contract
-            </a>
-          </div>
-
-          <figure className=" ms-hiddenXlDown">
-            <Link to={`rules`} className={``}>
-              <img alt={`Banner`} src={Banner} />
-            </Link>
-          </figure>
-
-          <Link to={`rules`} className={`${styles['btn-rule']} ms-hiddenXxlUp`}>
-            Rules
-          </Link>
-
-          {/* <div className={`${styles['banner']}`} >
-            <img src={BannerPartyIcon} alt={`Party Icon`} />
-
-            <p> CandyZap NFT collection with a random holder reward system.</p>
-
-            <ul className={`d-flex flex-row align-items-start`}>
-              <li>
-                <span>LSP8</span>
-              </li>
-              <li>
-                <span>NFT 2.0</span>
-              </li>
-              <li>
-                <span>LYX</span>
-              </li>
-            </ul>
-
-            <img className={styles['banner__img']} src={FivePercent} alt="5% back to holders" />
-
-            <Link to={`rules`} className={`${styles['rule']}`}>
-              Rules
-            </Link>
-          </div> */}
         </div>
+
+        <Link to={`rules`} className={`${styles['btn-rule']} ms-hiddenXxlUp`}>
+          Rules
+        </Link>
       </section>
     </>
+  )
+}
+
+const SponserAd = () => {
+  return (
+    <div className={`${styles['sponser-ad']} d-flex flex-column align-items-center justify-content-center`}>
+      <p>Be the sponser for the next tournament</p>
+      <a href={`https://twitter.com/CandyZapNFT`} target={`_blank`}>
+        Contact Us
+      </a>
+    </div>
   )
 }
 
