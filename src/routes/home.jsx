@@ -267,7 +267,7 @@ function Home({ title }) {
 
   const startCountdown = async (date, id) => {
     var countDownDate = new Date(new Date(date).getTime())
-    timer = setInterval(() => {
+    let timer = setInterval(() => {
       // if (!timerRef.current) clearInterval(timer)
       var now = new Date().getTime()
       var distance = countDownDate - now
@@ -483,7 +483,7 @@ function Home({ title }) {
                 </svg>
               </div>
 
-              <div className={`${styles['tournament__list']} d-flex flex-column align-items-stretch justify-content-stretch`}>
+              <div className={`${styles['tournament__list']} d-flex flex-wrap flex-column align-items-stretch justify-content-stretch`}>
                 <div>
                   {tournament &&
                     tournament.map((item, i) => {
@@ -510,7 +510,7 @@ function Home({ title }) {
                             </ul>
                           </div>
 
-                          <ul className={`${styles['tournament-card__middle']} d-flex flex-row`}>
+                          <ul className={`${styles['tournament-card__middle']} d-flex flex-wrap flex-row`}>
                             <li>
                               <span>{item.total_players}</span>
                               <span>Players</span>
