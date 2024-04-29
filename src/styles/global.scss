@@ -2,7 +2,8 @@
 @use "components" as *;
 @import "./../../node_modules/animate.css/animate.min.css";
 @import "./../../node_modules/office-ui-fabric-core/dist/sass/Fabric.scss";
-
+@import url(https://fonts.googleapis.com/css?family=Libre+Franklin:400,500,600|Miriam+Libre:400);
+@import url(https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap);
 .d-none {
   display: none;
 }

@@ -6,6 +6,8 @@ $height: $width;
 .section {
   height: inherit;
   padding: 1rem 0;
+  background: linear-gradient(to bottom, var(--color-primary) 0%, rgba(255, 255, 255, 0) 100%);
+
   p {
     line-height: 20px;
   }

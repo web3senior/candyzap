@@ -2,13 +2,24 @@
  * u
  * @returns
  */
-export async function getTournament(filter = '') {
+export async function getTournament(id, filter = '') {
+  let requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  }
+
+  const response = await fetch(`${import.meta.env.VITE_API_URL}tournament/${id}`, requestOptions)
+  if (!response.ok) throw new Response('Failed to get data', { status: 500 })
+  return response.json()
+}
+
+export async function getTournamentList(filter = '') {
   let requestOptions = {
     method: 'GET',
     redirect: 'follow',
   }
   const params = new URLSearchParams({ filter: filter }).toString()
-  const response = await fetch(`${import.meta.env.VITE_API_URL}tournament?${params}`, requestOptions)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}tournamentList?${params}`, requestOptions)
   if (!response.ok) throw new Response('Failed to get data', { status: 500 })
   return response.json()
 }
@@ -17,12 +28,12 @@ export async function getTournament(filter = '') {
  * Dashboard
  * @returns
  */
-export async function getLeaderboard(tournamentId) {
+export async function getLeaderboard(id) {
   let requestOptions = {
     method: 'GET',
     redirect: 'follow',
   }
-  const response = await fetch(`${import.meta.env.VITE_API_URL}leaderboard/${tournamentId}`, requestOptions)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}leaderboard/${id}`, requestOptions)
   if (!response.ok) throw new Response('Failed to get data', { status: 500 })
   return response.json()
 }

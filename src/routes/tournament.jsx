@@ -18,7 +18,8 @@ export default function Tournament({ title }) {
   const [from, setFrom] = useState(0)
   const auth = useAuth()
   const params = useParams()
-
+  const timerRef = useRef()
+  let timer
   const decodeProfileImage = (data) => {
     let url
     if (data.LSP3Profile.profileImage && data.LSP3Profile.profileImage.length > 0) {
@@ -42,9 +43,43 @@ export default function Tournament({ title }) {
     })
   }
 
+  const startCountdown = async (date, id) => {
+    var countDownDate = new Date(new Date(date).getTime())
+
+    timer = setInterval(() => {
+      if (!timerRef.current) clearInterval(timer)
+      var now = new Date().getTime()
+      var distance = countDownDate - now
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24))
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+      // Display the result in the element with id="demo"
+      timerRef.innerHTML = `
+      <ul className="d-flex">
+      <li><span>${days}</span><span>d</span>:</li>
+      <li><span>${hours}</span><span>h</span>:</li>
+      <li><span>${minutes}</span><span>m</span>:</li>
+      <li><span>${seconds}</span><span>s</span></li>
+      </ul>
+      `
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(timer)
+        setIsExpired(true)
+        timerRef.innerHTML = `<p className="text-center"><b>EXPIRED 🆙</b></p>`
+      }
+    }, 1000)
+  }
+
   useEffect(() => {
-    getTournament().then(async (res) => {
+    getTournament(params.id).then(async (res) => {
       setTournament(res)
+      startCountdown(res[0].end_date, res[0].id)
       setIsLoading(false)
     })
 
@@ -55,7 +90,7 @@ export default function Tournament({ title }) {
     getLeaderboardAndUP()
 
     localStorage.setItem('tournamentId', params.id)
-  }, [])
+  }, [timer])
 
   return (
     <>
@@ -66,38 +101,25 @@ export default function Tournament({ title }) {
               tournament.map((item, i) => {
                 return (
                   <div className="ms-Grid" key={i}>
-                    <div className="ms-Grid-row">
-                      <div className="ms-Grid-col ms-sm12 ms-lg6">
-                        <div className={`card`}>
-                          <div className={`card__header`}>Tournament Details</div>
-
-                          <div className={`card__body`}>
-                            <p>
-                              <b>{item.name}</b>
-                            </p>
-                            <p className="mt-40">{item.description}</p>
-                            <p>
-                              Prize: <b>{item.prize}</b> 💰
-                            </p>
-
-                            <div className="alert alert--dnger">Expiration: {item.end_date}</div>
-                          </div>
-                        </div>
+                    <div className={`card`}>
+                      <div className={`card__header`}>
+                        Play box
+                        {token && token.length > 0 && (
+                          <>
+                            <p className={`badge badge-pill badge-success ms-fontSize-12`}>Congratulations! You own 2 CandyZap tokens and can now start playing. Enjoy the game!</p>
+                          </>
+                        )}
                       </div>
-                      <div className="ms-Grid-col ms-sm12 ms-lg6">
-                        <div className={`card`}>
-                          <div className={`card__header`}>Game</div>
-
-                          <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
-                            <figure className={``}>
-                              <img src={`${item.game_logo}`} />
-                            </figure>
-                            <p>
-                              <b>{item.game_name}</b>
+                      <div className={`card__body`} style={{ height: '600px' }}>
+                        
+                        {token && token.length > 0 && <iframe src={`/sweet-match/index.html`} />}
+                        {token && token.length < 1 && (
+                          <>
+                            <p className={`${styles['error-alert']}`}>
+                              You need to mint CandyZap first, mint <Link to={`/`}>NOW!</Link>
                             </p>
-                            <p>{item.game_description}</p>
-                          </div>
-                        </div>
+                          </>
+                        )}
                       </div>
                     </div>
 
@@ -143,24 +165,45 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
-                    <div className={`card mt-20`}>
-                      <div className={`card__header`}>
-                        Play box
-                        {token && token.length > 0 && (
-                          <>
-                            <p className={`${styles['congrats']}`}>Congratulations! You own 2 CandyZap tokens and can now start playing. Enjoy the game!</p>
-                          </>
-                        )}
-                      </div>
-                      <div className={`card__body`} style={{ height: '600px' }}>
-                        {token && token.length > 0 && <iframe src={`/sweet-match/index.html`} />}
-                        {token && token.length < 1 && (
-                          <>
-                            <p className={`${styles['error-alert']}`}>
-                              You need to mint CandyZap first, mint <Link to={`/`}>NOW!</Link>
-                            </p>
-                          </>
-                        )}
+                    <div className={` mt-20`}>
+                      <div className="ms-Grid-row">
+                        <div className="ms-Grid-col ms-sm12 ms-lg6">
+                          <div className={`card`}>
+                            <div className={`card__header`}>Tournament Details</div>
+
+                            <div className={`card__body`}>
+                              <p>
+                                <b>{item.name}</b>
+                              </p>
+                              <p className="mt-40">{item.description}</p>
+                              <p>
+                                Prize: <b>{item.prize}</b> 💰
+                              </p>
+
+                              <div className="alert alert--dnger">
+                                Expiration:{' '}
+                                <span ref={timerRef} id={`countdown${item.id}`}>
+                                  {item.end_date}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="ms-Grid-col ms-sm12 ms-lg6">
+                          <div className={`card`}>
+                            <div className={`card__header`}>Game</div>
+
+                            <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
+                              <figure className={``}>
+                                <img src={`${item.game_logo}`} />
+                              </figure>
+                              <p>
+                                <b>{item.game_name}</b>
+                              </p>
+                              <p>{item.game_description}</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

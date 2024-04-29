@@ -1,12 +1,11 @@
 :root {
-  font-family: var(--ff-segoe);
-  line-height: 1.5;
+  font-family: Libre Franklin;
   font-weight: 400;
   font-size: 13px;
 
   // color-scheme: light dark;
   // color: rgba(255, 255, 255, 0.87);
-  background: #ffec19;
+  background: var(--white);
   -webkit-tap-highlight-color: transparent;
 
   font-synthesis: none;
