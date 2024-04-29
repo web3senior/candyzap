@@ -58,20 +58,13 @@ export default function Tournament({ title }) {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000)
 
       // Display the result in the element with id="demo"
-      timerRef.innerHTML = `
-      <ul className="d-flex">
-      <li><span>${days}</span><span>d</span>:</li>
-      <li><span>${hours}</span><span>h</span>:</li>
-      <li><span>${minutes}</span><span>m</span>:</li>
-      <li><span>${seconds}</span><span>s</span></li>
-      </ul>
-      `
+      timerRef.current.innerHTML = `<div><span>${days}</span><b>d</b>:<span>${hours}</span><b>h</b>:<span>${minutes}</span><b>m</b>:<span>${seconds}</span><b>s</b></div>`
 
       // If the count down is finished, write some text
       if (distance < 0) {
         clearInterval(timer)
         setIsExpired(true)
-        timerRef.innerHTML = `<p className="text-center"><b>EXPIRED 🆙</b></p>`
+        timerRef.current.innerHTML = `<p className="text-center"><b>EXPIRED 🆙</b></p>`
       }
     }, 1000)
   }
@@ -180,12 +173,11 @@ export default function Tournament({ title }) {
                                 Prize: <b>{item.prize}</b> 💰
                               </p>
 
-                              <div className="alert alert--dnger">
-                                Expiration:{' '}
-                                <span ref={timerRef} id={`countdown${item.id}`}>
+                             
+                                <div className={`mt-20`} ref={timerRef} id={`countdown${item.id}`}>
                                   {item.end_date}
-                                </span>
-                              </div>
+                                </div>
+                       
                             </div>
                           </div>
                         </div>
