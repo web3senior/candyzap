@@ -15,11 +15,13 @@ export default function Tournament({ title }) {
   const [leaderboard, setLeaderboard] = useState([])
   const [token, setToken] = useState([])
   const [profile, setProfile] = useState([])
+  const [sponser, setSponser] = useState()
   const [from, setFrom] = useState(0)
   const auth = useAuth()
   const params = useParams()
   const timerRef = useRef()
   let timer
+
   const decodeProfileImage = (data) => {
     let url
     if (data.LSP3Profile.profileImage && data.LSP3Profile.profileImage.length > 0) {
@@ -73,6 +75,12 @@ export default function Tournament({ title }) {
     getTournament(params.id).then(async (res) => {
       setTournament(res)
       startCountdown(res[0].end_date, res[0].id)
+
+      auth.fetchProfile(res[0].sponser_addr).then((sponser) => {
+        console.log(sponser)
+        setSponser(sponser)
+      })
+
       setIsLoading(false)
     })
 
@@ -104,7 +112,6 @@ export default function Tournament({ title }) {
                         )}
                       </div>
                       <div className={`card__body`} style={{ height: '600px' }}>
-                        
                         {token && token.length > 0 && <iframe src={`/sweet-match/index.html`} />}
                         {token && token.length < 1 && (
                           <>
@@ -158,6 +165,23 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
+                    <div className={`${styles['sponser']} mt-40`}>
+                      <div className={`card`}>
+                        <div className={`card__header`}>Sponser</div>
+                        <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
+                          {sponser && sponser.LSP3Profile && (
+                            <>
+                              <figure>
+                                <img src={decodeProfileImage(sponser)} />
+                                <figcaption>{sponser.LSP3Profile.name}</figcaption>
+                              </figure>
+                              <p>{sponser.LSP3Profile.description}</p>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
                     <div className={` mt-20`}>
                       <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-sm12 ms-lg6">
@@ -168,16 +192,14 @@ export default function Tournament({ title }) {
                               <p>
                                 <b>{item.name}</b>
                               </p>
-                              <p className="mt-40">{item.description}</p>
-                              <p>
+                              <p className="mt-10">{item.description}</p>
+                              <p className="mt-10">
                                 Prize: <b>{item.prize}</b> 💰
                               </p>
 
-                             
-                                <div className={`mt-20`} ref={timerRef} id={`countdown${item.id}`}>
-                                  {item.end_date}
-                                </div>
-                       
+                              <div className={`mt-20`} ref={timerRef} id={`countdown${item.id}`}>
+                                {item.end_date}
+                              </div>
                             </div>
                           </div>
                         </div>

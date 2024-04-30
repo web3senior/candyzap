@@ -24,6 +24,31 @@ $height: $width;
   }
 }
 
+.sponser {
+  figure {
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--global-border-radius);
+      border: 2px solid rgba(0, 0, 0, 0.1);
+    }
+
+    figcaption {
+      text-align: center;
+      font-weight: 900;
+      &:before {
+        content: '@';
+      }
+    }
+  }
+
+  p {
+    max-width: 400px;
+    text-wrap: balance;
+    text-align: center;
+  }
+}
+
 figure.pfp {
   column-gap: 1rem;
   background-image: url('./../assets/inner-candy.svg');
