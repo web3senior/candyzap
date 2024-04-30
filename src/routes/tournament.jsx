@@ -135,7 +135,7 @@ export default function Tournament({ title }) {
                           <thead style={{ position: 'sticky', top: '0' }}>
                             <tr>
                               <th className="text-left">User</th>
-                              <th>Score</th>
+                              <th>Highest Score</th>
                               <th>Action</th>
                             </tr>
                           </thead>
