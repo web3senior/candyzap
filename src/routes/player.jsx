@@ -1,18 +1,18 @@
 import { Suspense, useState, useEffect, useRef } from 'react'
 import { useLoaderData, defer, Form, Await, useRouteError, Link, useNavigate, useParams } from 'react-router-dom'
 import { Title } from './helper/DocumentTitle'
-import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
+import { useAuth, web3, _, CandyZapContract } from '../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
-import { getTournament, getLeaderboard } from './../util/api'
+import { getTournament, getPlayer } from '../util/api'
 import DefaultProfile from './../assets/aratta.svg'
-import styles from './Tournament.module.scss'
+import styles from './Player.module.scss'
 
 export default function Tournament({ title }) {
   Title(title)
   const [loaderData, setLoaderData] = useState(useLoaderData())
   const [isLoading, setIsLoading] = useState(true)
   const [tournament, setTournament] = useState()
-  const [leaderboard, setLeaderboard] = useState([])
+  const [player, setPlayer] = useState([])
   const [token, setToken] = useState([])
   const [profile, setProfile] = useState([])
   const [sponser, setSponser] = useState()
@@ -33,13 +33,13 @@ export default function Tournament({ title }) {
 
   const getTokenIdsOf = async (addr) => await CandyZapContract.methods.tokenIdsOf(addr).call()
 
-  const getLeaderboardAndUP = () => {
-    setLeaderboard([])
-    getLeaderboard(params.id).then(async (res) => {
+  const getPlayerAndUP = () => {
+    setPlayer([])
+    getPlayer(params.id, params.wallet_addr).then(async (res) => {
       console.log(res)
       const responses = await Promise.all(res.map(async (item) => Object.assign(await auth.fetchProfile(item.wallet_addr), item)))
       console.log(responses)
-      setLeaderboard((leaderboard) => leaderboard.concat(responses))
+      setPlayer((player) => player.concat(responses))
 
       setIsLoading(false)
     })
@@ -88,7 +88,7 @@ export default function Tournament({ title }) {
       setToken(res)
     })
 
-    getLeaderboardAndUP()
+    getPlayerAndUP()
 
     localStorage.setItem('tournamentId', params.id)
   }, [timer])
@@ -102,31 +102,10 @@ export default function Tournament({ title }) {
               tournament.map((item, i) => {
                 return (
                   <div className="ms-Grid" key={i}>
-                    <div className={`card`}>
-                      <div className={`card__header`}>
-                        Play box
-                        {token && token.length > 0 && (
-                          <>
-                            <p className={`badge badge-pill badge-success ms-fontSize-12`}>Congratulations! You own 2 CandyZap tokens and can now start playing. Enjoy the game!</p>
-                          </>
-                        )}
-                      </div>
-                      <div className={`card__body`} style={{ height: '600px' }}>
-                        {token && token.length > 0 && <iframe src={`/sweet-match/index.html`} />}
-                        {token && token.length < 1 && (
-                          <>
-                            <p className={`${styles['error-alert']}`}>
-                              You need to mint CandyZap first, mint <Link to={`/`}>NOW!</Link>
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </div>
-
                     <div className={`card mt-20`}>
                       <div className={`card__header d-flex align-items-center justify-content-between`}>
-                        Leaderboard [10 Top Users]
-                        <button className={`${styles['btn-refresh']}`} onClick={() => getLeaderboardAndUP()}>
+                        Play details
+                        <button className={`${styles['btn-refresh']}`} onClick={() => getPlayerAndUP()}>
                           Refresh
                         </button>
                       </div>
@@ -135,13 +114,14 @@ export default function Tournament({ title }) {
                           <thead style={{ position: 'sticky', top: '0' }}>
                             <tr>
                               <th className="text-left">User</th>
+                              <th>Level</th>
                               <th>Score</th>
-                              <th>Action</th>
+                              <th>At</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {leaderboard &&
-                              leaderboard.map((item, i) => {
+                            {player &&
+                              player.map((item, i) => {
                                 return (
                                   <tr key={i}>
                                     <td title={`${item.LSP3Profile.description}`} className={`d-flex flex-row align-items-center`} style={{ columnGap: '.5rem' }}>
@@ -151,13 +131,11 @@ export default function Tournament({ title }) {
                                       <div>
                                         <b>@{item.LSP3Profile.name}</b>
                                       </div>
-                                      <span>{item.counter} times played</span>
                                     </td>
-                                    <td className="text-center">{item.max_score}</td>
+                                    <td className="text-center">{++item.level_number}</td>
+                                    <td className="text-center">{item.score}</td>
                                     <td className="text-center" width="10">
-                                      <Link className="btn" to={`/player/${item.wallet_addr}/tournament/${params.id}`}>
-                                        Details
-                                      </Link>
+                                      <span className="badge badge-light">{item.dt}</span>
                                     </td>
                                   </tr>
                                 )

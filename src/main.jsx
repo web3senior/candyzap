@@ -18,6 +18,7 @@ import About from './routes/about.jsx'
 import Rules from './routes/rules.jsx'
 import Rewarded from './routes/rewarded.jsx'
 import Tournament from './routes/tournament.jsx'
+import Player from './routes/player.jsx'
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'play/tournament/:id',
         element: <Tournament title={`Tournament`} />,
+      },
+      {
+        path: 'player/:wallet_addr/tournament/:id',
+        element: <Player title={`Tournament`} />,
       },
       {
         path: 'whitelist',

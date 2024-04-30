@@ -28,12 +28,22 @@ export async function getTournamentList(filter = '') {
  * Dashboard
  * @returns
  */
-export async function getLeaderboard(id) {
+export async function getLeaderboard(tournamentId) {
   let requestOptions = {
     method: 'GET',
     redirect: 'follow',
   }
-  const response = await fetch(`${import.meta.env.VITE_API_URL}leaderboard/${id}`, requestOptions)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}leaderboard/${tournamentId}`, requestOptions)
+  if (!response.ok) throw new Response('Failed to get data', { status: 500 })
+  return response.json()
+}
+
+export async function getPlayer(tournamentId, walletAddr) {
+  let requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  }
+  const response = await fetch(`${import.meta.env.VITE_API_URL}player/${tournamentId}/${walletAddr}`, requestOptions)
   if (!response.ok) throw new Response('Failed to get data', { status: 500 })
   return response.json()
 }
