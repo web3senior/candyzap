@@ -503,7 +503,7 @@ const TournamentItem = ({ item }) => {
 const SponserAd = () => {
   return (
     <div className={`${styles['sponser-ad']} d-flex flex-column align-items-center justify-content-center`}>
-      <p>Be the sponser for the next tournament</p>
+      <p>Be the sponsor for the upcoming tournament</p>
       <a href={`https://twitter.com/CandyZapNFT`} target={`_blank`}>
         Contact Us
       </a>
