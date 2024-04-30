@@ -451,7 +451,7 @@ function Home({ title }) {
 
             <div className={`alert alert--info alert--border d-flex align-items-center`} style={{ columnGap: '.5rem' }}>
               <img className="alert__icon" src={IconAds} />
-              Be the sponser of the next tournament.{' '}
+              Be the sponsor of the upcoming tournaments.
               <a className="alert__link" href={`https://twitter.com/CandyZapNFT`} target={`_blank`}>
                 contact us
               </a>
