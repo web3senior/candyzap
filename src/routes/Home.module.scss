@@ -8,7 +8,6 @@
     padding: 0;
   }
 
-
   .lips {
     padding: 1rem 0;
     background-color: var(--color-primary);
@@ -17,7 +16,6 @@
     justify-content: center;
 
     &__container {
-     
     }
 
     figure {
@@ -537,20 +535,6 @@
     order: 3;
     align-self: stretch;
     flex-grow: 0;
-  }
-}
-
-.sponser-ad {
-  background-color: #fafafa;
-  border: 2px dashed #eaeaea;
-  width: 100%;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.22);
-  font-weight: 400;
-  padding: 0.5em 0;
-  a {
-    display: inline-block;
-    font-weight: 600;
   }
 }
 

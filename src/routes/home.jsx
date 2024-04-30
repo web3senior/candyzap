@@ -449,10 +449,13 @@ function Home({ title }) {
               </p>
             </div>
 
-            <div className={`alert alert--info alert--border d-flex align-items-center`} style={{columnGap:'.5rem'}}>
-              <img className='alert__icon' src={IconAds}/>
-              Be the sponser of the next tournament. <a className='alert__link' href={`https://twitter.com/CandyZapNFT`} target={`_blank`}>contact us</a>
-              </div>
+            <div className={`alert alert--info alert--border d-flex align-items-center`} style={{ columnGap: '.5rem' }}>
+              <img className="alert__icon" src={IconAds} />
+              Be the sponser of the next tournament.{' '}
+              <a className="alert__link" href={`https://twitter.com/CandyZapNFT`} target={`_blank`}>
+                contact us
+              </a>
+            </div>
 
             <div className={`${styles['tournament__grid']} grid grid--fit`} style={{ '--data-width': '300px' }}>
               {tournament &&
@@ -476,11 +479,9 @@ function Home({ title }) {
             </Link>
           </figure>
           <Link to={`rules`} className={`${styles['btn-rule']} ms-hiddenXxlUp`}>
-          Rules
-        </Link>
+            Rules
+          </Link>
         </div>
-
-       
       </section>
     </>
   )
@@ -497,16 +498,6 @@ const TournamentItem = ({ item }) => {
         <p>{item.description.substring(0, 100)}...</p>
         <div className={`mt-10`}>{item.position === '1' ? <span className={`badge badge-success badge-pill`}>Open</span> : <span className={`badge badge-warning badge-pill`}>Soon</span>}</div>
       </div>
-    </div>
-  )
-}
-const SponserAd = () => {
-  return (
-    <div className={`${styles['sponser-ad']} d-flex flex-column align-items-center justify-content-center`}>
-      <p>Be the sponsor for the upcoming tournament</p>
-      <a href={`https://twitter.com/CandyZapNFT`} target={`_blank`}>
-        Contact Us
-      </a>
     </div>
   )
 }
