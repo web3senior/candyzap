@@ -380,7 +380,7 @@ function Home({ title }) {
                     <img alt={`Max Supply`} src={MaxSupplyIcon} />
                   </figure>
                   <b>{maxSupply.toLocaleString()}</b>
-                  <span>Max supply of token</span>
+                  <span>{(maxSupply - totalSupply).toLocaleString()} available tokens</span>
                 </div>
               </div>
 
@@ -393,7 +393,7 @@ function Home({ title }) {
                     <img alt={`Mint Price`} src={MintPriceIcon} />
                   </figure>
                   <b>{price} $LYX</b>
-                  <span>Per token</span>
+                  <span>per token</span>
                 </div>
               </div>
 
@@ -406,20 +406,20 @@ function Home({ title }) {
                     <img alt={`Holders`} src={HoldersIcon} />
                   </figure>
                   <b>{totalSupply}</b>
-                  <span>Total owner</span>
+                  <span>total owner</span>
                 </div>
               </div>
 
               <div className={`${styles['statistics__card']}`}>
                 <div className={`${styles['statistics__card__header']}`}>
-                  <div>Back To holders</div>
+                  <div>back To holders</div>
                 </div>
                 <div className={`${styles['statistics__card__body']}`}>
                   <figure>
                     <img alt={`Back To holders`} src={BackToHoldersIcon} />
                   </figure>
                   <b>{holderReward}%</b>
-                  <span>{holderReward}% of mint price</span>
+                  <span>random-based</span>
                 </div>
               </div>
 
@@ -433,7 +433,7 @@ function Home({ title }) {
                     <img alt={`Holders`} src={RewardedIcon} />
                   </figure>
                   <b>{totalSupply}</b>
-                  <span>random winner per mint</span>
+                  <span>users rewarded</span>
                 </div>
               </div>
             </div>
@@ -496,7 +496,10 @@ const TournamentItem = ({ item }) => {
       <div className={`${styles['tournament__card__body']}`}>
         <h3>{item.name}</h3>
         <p>{item.description.substring(0, 100)}...</p>
-        <div className={`mt-10`}>{item.position === '1' ? <span className={`badge badge-success badge-pill`}>Open</span> : <span className={`badge badge-warning badge-pill`}>Soon</span>}</div>
+        <div className={`mt-10`}>
+          {item.position === '1' ? <span className={`badge badge-success badge-pill`}>Open</span> : <span className={`badge badge-warning badge-pill`}>Soon</span>}
+          {item.prize && <span className={`badge badge-dark badge-pill ml-10`}>{item.prize}</span>}
+        </div>
       </div>
     </div>
   )
