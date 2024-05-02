@@ -7,31 +7,29 @@ function new_level(level_number) {
 function level_completed(level_number, player_score) {
   console.log('Here is the score:', player_score)
   document.querySelector('#score').value = player_score
-  window.parent.postMessage({ message: "playerScore", value: player_score }, "*");
+  window.parent.postMessage({ message: 'playerScore', value: player_score }, '*')
 
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  
+  var myHeaders = new Headers()
+  myHeaders.append('Content-Type', 'application/json')
+
   var raw = JSON.stringify({
-    "tournament_id": localStorage.getItem('tournamentId'),
-    "wallet_addr": localStorage.getItem('wallet_addr'),
-    "score": player_score,
-    "level_number":level_number
-  });
-  
+    tournament_id: localStorage.getItem('tournamentId'),
+    wallet_addr: localStorage.getItem('wallet_addr'),
+    score: player_score,
+    level_number: level_number,
+  })
+
   var requestOptions = {
     method: 'POST',
     headers: myHeaders,
     body: raw,
-    redirect: 'follow'
-  };
-  
-  fetch("https://api.candyzap.com/v1/newRecord", requestOptions)
-    .then(response => response.json())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+    redirect: 'follow',
+  }
 
-
+  fetch('https://candyzap.aratta.dev/v1/newRecord', requestOptions)
+    .then((response) => response.json())
+    .then((result) => console.log(result))
+    .catch((error) => console.log('error', error))
 }
 
 // when player, close level before completed it.
@@ -57,4 +55,3 @@ function close_level(level_number) {
 //   // event.source is popup
 //   // event.data is "hi there yourself!  the secret response is: hiiiiiiii!"
 // }, false);
-
