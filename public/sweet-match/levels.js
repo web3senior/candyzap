@@ -8,7 +8,7 @@
 
 const Levels = [
   {
-    w:5, items:[6,3,5], power_percent:10, time:20, music:1,
+    w:5, items:[6,3,5], power_percent:10, time:60*10, music:1,
     t:[
       '11111',
       '11111',
@@ -18,7 +18,7 @@ const Levels = [
     ],
   }, // 1
   {
-    w:6, items:[6,2,5,4], power_percent:20, time:15, music:1,
+    w:6, items:[6,2,5,4], power_percent:20, time:60*10, music:1,
     t:[
       '111111',
       '111111',
