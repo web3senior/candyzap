@@ -26,7 +26,7 @@ function level_completed(level_number, player_score) {
     redirect: 'follow'
   };
   
-  fetch("https://candyzap.aratta.me/v1/newRecord", requestOptions)
+  fetch("https://api.candyzap.com/v1/newRecord", requestOptions)
     .then(response => response.json())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
