@@ -338,7 +338,7 @@ function Home({ title }) {
               <img src={Yummy} />
             </figure>
 
-            <p style={{ maxWidth: '500px', textOverflow: 'balance' }} className="text-center">
+            <p style={{ maxWidth: '500px', textOverflow: 'balance', lineHeight: '1.4' }} className="text-center">
               CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.
             </p>
 
