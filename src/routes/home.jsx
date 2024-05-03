@@ -458,6 +458,19 @@ function Home({ title }) {
             </div>
 
             <div className={`${styles['tournament__grid']} grid grid--fit`} style={{ '--data-width': '300px' }}>
+              {!tournament && (
+                <>
+                  <Shimmer>
+                    <div style={{ width: `300px`, height: `300px`, background: '#F8FAF8' }} />
+                  </Shimmer>
+                  <Shimmer>
+                    <div style={{ width: `300px`, height: `300px`, background: '#F8FAF8' }} />
+                  </Shimmer>
+                  <Shimmer>
+                    <div style={{ width: `300px`, height: `300px`, background: '#F8FAF8' }} />
+                  </Shimmer>
+                </>
+              )}
               {tournament &&
                 tournament.map((item, i) => {
                   return item.position === `1` ? (
@@ -499,7 +512,7 @@ const TournamentItem = ({ item }) => {
         <div className={`mt-10`}>
           {item.position === '1' ? <span className={`badge badge-success badge-pill`}>Open</span> : <span className={`badge badge-warning badge-pill`}>Soon</span>}
           {item.prize && <span className={`badge badge-dark badge-pill ml-10`}>{item.prize}</span>}
-           {item.total_player && <span className={`badge badge-danger badge-pill ml-10`}>🎮{item.total_player} plyers</span>}
+          {item.total_player && <span className={`badge badge-danger badge-pill ml-10`}>🎮{item.total_player} plyers</span>}
         </div>
       </div>
     </div>
