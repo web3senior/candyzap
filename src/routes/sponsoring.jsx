@@ -1,5 +1,5 @@
 import { Title } from './helper/DocumentTitle'
-import styles from './Sponsiring.module.scss'
+import styles from './Sponsoring.module.scss'
 
 export default function About({ title }) {
   Title(title)

@@ -31,10 +31,10 @@ let links = [
     path: `rewarded`,
   },
   {
-    name: 'Sponsiring',
+    name: 'Sponsoring ',
     icon: null,
     target: '',
-    path: `sponsiring`,
+    path: `sponsoring`,
   },
   // {
   //   name: 'Tournaments',
