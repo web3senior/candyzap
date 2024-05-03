@@ -30,6 +30,12 @@ let links = [
     target: '',
     path: `rewarded`,
   },
+  {
+    name: 'Sponsiring',
+    icon: null,
+    target: '',
+    path: `sponsiring`,
+  },
   // {
   //   name: 'Tournaments',
   //   icon: null,

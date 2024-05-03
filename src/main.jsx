@@ -19,6 +19,7 @@ import Rules from './routes/rules.jsx'
 import Rewarded from './routes/rewarded.jsx'
 import Tournament from './routes/tournament.jsx'
 import Player from './routes/player.jsx'
+import Sponsiring from './routes/sponsiring.jsx'
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: 'whitelist',
         element: <Whitelist title={`Whitelist`} />,
+      },
+       {
+        path: 'sponsiring',
+        element: <Sponsiring title={`Sponsiring`} />,
       },
     ],
   },
