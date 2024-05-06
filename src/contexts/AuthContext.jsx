@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 // import { user } from '../util/api'
 // import { ERC725 } from '@erc725/erc725.js'
 import ABI from './../abi/candyzap.json'
+import pepitoABI from './../abi/pepito.json'
 // import lsp3ProfileSchema from '@erc725/erc725.js/schemas/LSP3ProfileMetadata.json'
 import LSP0ERC725Account from '@lukso/lsp-smart-contracts/artifacts/LSP0ERC725Account.json'
 import toast, { Toaster } from 'react-hot-toast'
@@ -11,6 +12,7 @@ import Web3 from 'web3'
 export const PROVIDER = window.lukso || import.meta.env.VITE_RPC_URL
 export const web3 = new Web3(PROVIDER)
 export const CandyZapContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
+export const PepitoContract = new web3.eth.Contract(ABI, import.meta.env.VITE_PEPITO_CONTRACT_MAINNET)
 export const _ = web3.utils._
 
 export const AuthContext = React.createContext()

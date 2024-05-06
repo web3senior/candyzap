@@ -1012,17 +1012,17 @@ const Map = {
   }
 };
 Map.ba=[
-  {x:180, y:-200, hover:false, s:0}, // 1
-  {x:500, y:-340, hover:false, s:0}, // 2
-  {x:670, y:-350, hover:false, s:0}, // 3
+  {x:280, y:-180, hover:false, s:0}, // 1
+  {x:560, y:-320, hover:false, s:0}, // 2
+  {x:690, y:-320, hover:false, s:0}, // 3
   {x:720, y:-520, hover:false, s:0}, // 4
-  {x:440, y:-530, hover:false, s:0}, // 5
-  {x:580, y:-620, hover:false, s:0}, // 6
-  {x:750, y:-680, hover:false, s:0}, // 7
-  {x:690, y:-830, hover:false, s:0}, // 8
-  {x:450, y:-840, hover:false, s:0}, // 9
-  {x:570, y:-970, hover:false, s:0}, // 10
-  {x:280, y:-1160, hover:false, s:0}, // 11
+  {x:690, y:-780, hover:false, s:0}, // 5
+  {x:560, y:-780, hover:false, s:0}, // 6
+  {x:240, y:-800, hover:false, s:0}, // 7
+  {x:230, y:-930, hover:false, s:0}, // 8
+  {x:260, y:-1120, hover:false, s:0}, // 9
+  {x:500, y:-1180, hover:false, s:0}, // 10
+  {x:20, y:-1260, hover:false, s:0}, // 11
   {x:620, y:-1290, hover:false, s:0}, // 12
   {x:300, y:-1460, hover:false, s:0}, // 13
   {x:140, y:-1590, hover:false, s:0}, // 14

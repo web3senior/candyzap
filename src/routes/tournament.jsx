@@ -1,7 +1,7 @@
 import { Suspense, useState, useEffect, useRef } from 'react'
 import { useLoaderData, defer, Form, Await, useRouteError, Link, useNavigate, useParams } from 'react-router-dom'
 import { Title } from './helper/DocumentTitle'
-import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
+import { useAuth, web3, _, CandyZapContract, PepitoContract } from './../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
 import { getTournament, getLeaderboard } from './../util/api'
 import DefaultProfile from './../assets/aratta.svg'
@@ -14,8 +14,9 @@ export default function Tournament({ title }) {
   const [tournament, setTournament] = useState()
   const [leaderboard, setLeaderboard] = useState([])
   const [token, setToken] = useState([])
+  const [pepito, setPepito] = useState()
   const [profile, setProfile] = useState([])
-  const [sponser, setSponser] = useState()
+  const [sponsor, setSponsor] = useState()
   const [from, setFrom] = useState(0)
   const auth = useAuth()
   const params = useParams()
@@ -32,6 +33,8 @@ export default function Tournament({ title }) {
   }
 
   const getTokenIdsOf = async (addr) => await CandyZapContract.methods.tokenIdsOf(addr).call()
+
+  const getPepitoTokenIdsOf = async (addr) => await PepitoContract.methods.balanceOf(addr).call()
 
   const getLeaderboardAndUP = () => {
     setLeaderboard([])
@@ -72,13 +75,19 @@ export default function Tournament({ title }) {
   }
 
   useEffect(() => {
+    getPepitoTokenIdsOf(auth.wallet).then(async (res) => {
+      let balanceOf = Math.round(web3.utils.fromWei(res, 'ether'))
+      setPepito(balanceOf)
+    })
+
     getTournament(params.id).then(async (res) => {
+      console.log(res)
       setTournament(res)
       startCountdown(res[0].end_date, res[0].id)
 
-      auth.fetchProfile(res[0].sponser_addr).then((sponser) => {
-        console.log(sponser)
-        setSponser(sponser)
+      auth.fetchProfile(res[0].sponsor_addr).then((sponsor) => {
+        console.log(sponsor)
+        setSponsor(sponsor)
       })
 
       setIsLoading(false)
@@ -110,13 +119,35 @@ export default function Tournament({ title }) {
                             <p className={`badge badge-pill badge-success ms-fontSize-12`}>Congratulations! You own 2 CandyZap tokens and can now start playing. Enjoy the game!</p>
                           </>
                         )}
+                        {item.id === 8 && (
+                          <>
+                            <span className={`badge badge-pill badge-danger ms-fontSize-12`}>{pepito && pepito.toLocaleString()} $PEPITO</span>
+                          </>
+                        )}
                       </div>
                       <div className={`card__body`} style={{ height: '600px' }}>
-                        {token && token.length > 0 && <iframe src={`/sweet-match/index.html`} />}
+                        {token && token.length > 0 && (
+                          <>
+                            {item.id === 8 && pepito < 1 ? (
+                              <>
+                                <p className={`${styles['error-alert']}`}>
+                                  In order to play, you need to have some $PEPITO token, swap{' '}
+                                  <Link target={`_blank`} to={`https://universalswaps.io/tokens/lukso/0x13fe7655c1bef7864dfc206838a20d00e5ce60a1`}>
+                                    NOW!
+                                  </Link>
+                                </p>
+                              </>
+                            ) : (
+                              <>
+                                <iframe src={`/${tournament && tournament[0]?.game_folder_name}/index.html`} />
+                              </>
+                            )}
+                          </>
+                        )}
                         {token && token.length < 1 && (
                           <>
                             <p className={`${styles['error-alert']}`}>
-                              You need to mint CandyZap first, mint <Link to={`/`}>NOW!</Link>
+                              in order to play, you need to mint CandyZap, mint <Link to={`/`}>NOW!</Link>
                             </p>
                           </>
                         )}
@@ -167,17 +198,24 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
-                    <div className={`${styles['sponser']} mt-40`}>
+                    <div className={`${styles['sponsor']} mt-40`}>
                       <div className={`card`}>
-                        <div className={`card__header`}>Sponser</div>
+                        <div className={`card__header`}>sponsor</div>
                         <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
-                          {sponser && sponser.LSP3Profile && (
+                          {sponsor && sponsor.LSP3Profile && (
                             <>
                               <figure>
-                                <img src={decodeProfileImage(sponser)} />
-                                <figcaption>{sponser.LSP3Profile.name}</figcaption>
+                                <img src={decodeProfileImage(sponsor)} />
+                                <figcaption>{sponsor.LSP3Profile.name}</figcaption>
                               </figure>
-                              <p>{sponser.LSP3Profile.description}</p>
+                              <p>{sponsor.LSP3Profile.description}</p>
+                              <p>
+                                {item?.sponsor_url && (
+                                  <Link to={`${item?.sponsor_url}`} target={`_blank`}>
+                                    {item?.sponsor_url}
+                                  </Link>
+                                )}
+                              </p>
                             </>
                           )}
                         </div>
