@@ -77,7 +77,7 @@ export default function Tournament({ title }) {
   useEffect(() => {
     getPepitoTokenIdsOf(auth.wallet).then(async (res) => {
       console.log(res)
-      let balanceOf = Math.round(web3.utils.fromWei(res, 'ether'))
+      let balanceOf = Math.floor(web3.utils.fromWei(res, 'ether'))
       setPepito(balanceOf)
     })
 
@@ -120,7 +120,7 @@ export default function Tournament({ title }) {
                             <p className={`badge badge-pill badge-success ms-fontSize-12`}>Congratulations! You own 2 CandyZap tokens and can now start playing. Enjoy the game!</p>
                           </>
                         )}
-                        {item.id === 8 && (
+                        {parseInt(item.id) === 8 && (
                           <>
                             <span className={`badge badge-pill badge-danger ms-fontSize-12`}>{pepito && pepito.toLocaleString()} $PEPITO</span>
                           </>
