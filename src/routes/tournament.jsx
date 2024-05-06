@@ -76,6 +76,7 @@ export default function Tournament({ title }) {
 
   useEffect(() => {
     getPepitoTokenIdsOf(auth.wallet).then(async (res) => {
+      console.log(res)
       let balanceOf = Math.round(web3.utils.fromWei(res, 'ether'))
       setPepito(balanceOf)
     })
