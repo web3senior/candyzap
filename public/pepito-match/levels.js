@@ -111,7 +111,7 @@ const Levels = [
     ],
   }, // 8
   {
-    w:7, items:[4,1,2,3,5], power_percent:100, time:60*15, music:1,
+    w:7, items:[4,1,2,3,5], power_percent:85, time:60*15, music:1,
     t:[
       '1111111',
       '1111111',
@@ -123,7 +123,7 @@ const Levels = [
     ],
   }, // 9
   {
-    w:9, items:[0,1,2,3], power_percent:100, time:60*8, music:1,
+    w:9, items:[0,1,2,3], power_percent:90, time:60*8, music:1,
     t:[
       '001101100',
       '011111110',
