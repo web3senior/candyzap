@@ -164,7 +164,7 @@ export default function Tournament({ title }) {
                       </div>
                       <div className={`card__body`} style={{ maxHeight: '300px', overflowY: 'scroll' }}>
                         <table>
-                          <thead style={{ position: 'sticky', top: '0' }}>
+                          <thead style={{ position: 'sticky', top: '0',zIndex:2 }}>
                             <tr>
                               <th className="text-left">User</th>
                               <th>Highest Score</th>
@@ -180,10 +180,10 @@ export default function Tournament({ title }) {
                                       <figure className={`${styles['pfp']}`}>
                                         <img alt={`The Universal Fam NFT Collection`} src={decodeProfileImage(item)} />
                                       </figure>
-                                      <div>
-                                        <b>@{item.LSP3Profile.name}</b>
+                                      <div className={`d-flex flex-column`}>
+                                      <b className={``}>@{item.LSP3Profile.name} ({item.counter} times played)</b>
+                                      <Link to={`https://universalprofile.cloud/${item.wallet_addr}`} target={`_blank`} style={{color:'black', opacity:.2,zIndex:1}}>{item.wallet_addr}</Link>
                                       </div>
-                                      <span>{item.counter} times played</span>
                                     </td>
                                     <td className="text-center">{item.max_score}</td>
                                     <td className="text-center" width="10">
