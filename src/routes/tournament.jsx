@@ -3,7 +3,7 @@ import { useLoaderData, defer, Form, Await, useRouteError, Link, useNavigate, us
 import { Title } from './helper/DocumentTitle'
 import { useAuth, web3, _, CandyZapContract, PepitoContract } from './../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
-import { getTournament, getLeaderboard } from './../util/api'
+import { getTournament, getLeaderboard, serverDate } from './../util/api'
 import Place1 from './../assets/place1.svg'
 import Place2 from './../assets/place2.svg'
 import Place3 from './../assets/place3.svg'
@@ -21,6 +21,7 @@ export default function Tournament({ title }) {
   const [pepito, setPepito] = useState()
   const [profile, setProfile] = useState([])
   const [sponsor, setSponsor] = useState()
+  const [serverTimestamp, setServerTimestamp] = useState()
   const [from, setFrom] = useState(0)
   const auth = useAuth()
   const params = useParams()
@@ -52,12 +53,14 @@ export default function Tournament({ title }) {
     })
   }
 
-  const startCountdown = async (date, id) => {
-    var countDownDate = new Date(new Date(date).getTime())
+  const startCountdown = async (now,date, id) => {
+    
+    var countDownDate = new Date(date).getTime()
+
+    console.log(now,countDownDate)
 
     timer = setInterval(() => {
       if (!timerRef.current) clearInterval(timer)
-      var now = new Date().getTime()
       var distance = countDownDate - now
 
       // Time calculations for days, hours, minutes and seconds
@@ -79,6 +82,8 @@ export default function Tournament({ title }) {
   }
 
   useEffect(() => {
+
+
     getPepitoTokenIdsOf(auth.wallet).then(async (res) => {
       console.log(res)
       let balanceOf = Math.floor(web3.utils.fromWei(res, 'ether'))
@@ -88,7 +93,14 @@ export default function Tournament({ title }) {
     getTournament(params.id).then(async (res) => {
       console.log(res)
       setTournament(res)
-      startCountdown(res[0].end_date, res[0].id)
+
+  
+      serverDate().then(now => {
+        //console.log(now.result)
+        setServerTimestamp(now)
+        startCountdown(now.result,res[0].end_time_timestamp, res[0].id)
+      })
+     
 
       auth.fetchProfile(res[0].sponsor_addr).then((sponsor) => {
         console.log(sponsor)
@@ -258,9 +270,9 @@ export default function Tournament({ title }) {
                                 End date: <b>{item.end_date}</b> EST 🕛
                               </p>
 
-                              <div className={`mt-20`} ref={timerRef} id={`countdown${item.id}`}>
+                              {/* <div className={`mt-20`} ref={timerRef} id={`countdown${item.id}`}>
                                 {item.end_date}
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
