@@ -4,6 +4,10 @@ import { Title } from './helper/DocumentTitle'
 import { useAuth, web3, _, CandyZapContract, PepitoContract } from './../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
 import { getTournament, getLeaderboard } from './../util/api'
+import Place1 from './../assets/place1.svg'
+import Place2 from './../assets/place2.svg'
+import Place3 from './../assets/place3.svg'
+import NoPlace from './../assets/no-place.svg'
 import DefaultProfile from './../assets/aratta.svg'
 import styles from './Tournament.module.scss'
 
@@ -164,7 +168,7 @@ export default function Tournament({ title }) {
                       </div>
                       <div className={`card__body`} style={{ maxHeight: '300px', overflowY: 'scroll' }}>
                         <table>
-                          <thead style={{ position: 'sticky', top: '0',zIndex:2 }}>
+                          <thead style={{ position: 'sticky', top: '0', zIndex: 2 }}>
                             <tr>
                               <th className="text-left">User</th>
                               <th>Highest Score</th>
@@ -177,12 +181,20 @@ export default function Tournament({ title }) {
                                 return (
                                   <tr key={i}>
                                     <td title={`${item.LSP3Profile.description}`} className={`d-flex flex-row align-items-center`} style={{ columnGap: '.5rem' }}>
+                                    {i===0 && <figure className={`${styles['medal']}`}><img alt={`Place1`} src={Place1} /></figure>}
+                                    {i===1 && <figure className={`${styles['medal']}`}><img alt={`Place2`} src={Place2} /></figure>}
+                                    {i===2 && <figure className={`${styles['medal']}`}><img alt={`Place3`} src={Place3} /></figure>}
+                                    {i > 2 && <figure className={`${styles['medal']}`}><img alt={`NoPlace`} src={NoPlace} /></figure>}
                                       <figure className={`${styles['pfp']}`}>
                                         <img alt={`The Universal Fam NFT Collection`} src={decodeProfileImage(item)} />
                                       </figure>
                                       <div className={`d-flex flex-column`}>
-                                      <b className={``}>@{item.LSP3Profile.name} ({item.counter} times played)</b>
-                                      <Link to={`https://universalprofile.cloud/${item.wallet_addr}`} target={`_blank`} style={{color:'black', opacity:.2,zIndex:1}}>{item.wallet_addr}</Link>
+                                        <b className={``}>
+                                          @{item.LSP3Profile.name} ({item.counter} times played)
+                                        </b>
+                                        <Link to={`https://universalprofile.cloud/${item.wallet_addr}`} target={`_blank`} style={{ color: 'black', opacity: 0.2, zIndex: 1 }}>
+                                          {item.wallet_addr}
+                                        </Link>
                                       </div>
                                     </td>
                                     <td className="text-center">{item.max_score}</td>
@@ -236,6 +248,14 @@ export default function Tournament({ title }) {
                               <p className="mt-10">{item.description}</p>
                               <p className="mt-10">
                                 Prize: <b>{item.prize}</b> 💰
+                              </p>
+
+                              <p className="mt-10">
+                                Start date: <b>{item.start_date}</b> EST 🕛
+                              </p>
+
+                              <p className="mt-10">
+                                End date: <b>{item.end_date}</b> EST 🕛
                               </p>
 
                               <div className={`mt-20`} ref={timerRef} id={`countdown${item.id}`}>
