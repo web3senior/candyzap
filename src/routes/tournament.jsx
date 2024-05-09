@@ -247,6 +247,17 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
+                    <div className='alert alert--danger mt-20 border'>
+                    Dear CandyZap Tournament Players,
+<br/>
+Soon we will announce our tournament winners!<br/>
+Please Note: our tournament runs on Eastern Standard US Time. <br/>
+<br/>
+All Official Announcements will be posted on https://candyzap.com and the CandyZap X page. 
+<br/>
+Thanks for playing!🍭🥳
+                    </div>
+
                     <div className={` mt-20`}>
                       <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-sm12 ms-lg6">
