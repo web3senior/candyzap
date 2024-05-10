@@ -510,7 +510,7 @@ const TournamentItem = ({ item }) => {
         <h3>{item.name}</h3>
         <p>{item.description.substring(0, 100)}...</p>
         <div className={`mt-10`}>
-          {item.position === '1' ? <span className={`badge badge-success badge-pill`}>Open</span> : <span className={`badge badge-warning badge-pill`}>Start: {item.start_date}</span>}
+          {item.position === '1' ? <span className={`badge badge-success badge-pill`}>Open</span> : <span className={`badge badge-warning badge-pill`}>Start: {item.start_date} EST</span>}
           {item.prize && <span className={`badge badge-dark badge-pill ml-10`}>{item.prize}</span>}
           {item.position === '1' && item.total_player && <span className={`badge badge-danger badge-pill ml-10`}>🎮{item.total_player} plyers</span>}
         </div>
