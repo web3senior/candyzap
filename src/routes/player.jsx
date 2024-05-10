@@ -113,7 +113,7 @@ export default function Tournament({ title }) {
                         <table>
                           <thead style={{ position: 'sticky', top: '0' }}>
                             <tr>
-                              <th className="text-left">User</th>
+                              <th className="text-left">Player</th>
                               <th>Level</th>
                               <th>Score</th>
                               <th>At</th>
