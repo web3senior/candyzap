@@ -53,16 +53,18 @@ export default function Tournament({ title }) {
     })
   }
 
-  const startCountdown = async (now,date, id) => {
-    
-    var countDownDate = new Date(date).getTime()
+  const startCountdown = async (tournamentDates) => {
+    console.log(tournamentDates)
+    var countDownDate = new Date(`${tournamentDates.server_time}`).getTime();
+    let distance = countDownDate -  tournamentDates.now
 
-    console.log(now,countDownDate)
+
+    console.log(countDownDate)
+
+  
+
 
     timer = setInterval(() => {
-      if (!timerRef.current) clearInterval(timer)
-      var distance = countDownDate - now
-
       // Time calculations for days, hours, minutes and seconds
       var days = Math.floor(distance / (1000 * 60 * 60 * 24))
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -82,8 +84,6 @@ export default function Tournament({ title }) {
   }
 
   useEffect(() => {
-
-
     getPepitoTokenIdsOf(auth.wallet).then(async (res) => {
       console.log(res)
       let balanceOf = Math.floor(web3.utils.fromWei(res, 'ether'))
@@ -94,13 +94,7 @@ export default function Tournament({ title }) {
       console.log(res)
       setTournament(res)
 
-  
-      serverDate().then(now => {
-        //console.log(now.result)
-        setServerTimestamp(now)
-        startCountdown(now.result,res[0].end_time_timestamp, res[0].id)
-      })
-     
+     // startCountdown(res[0].date)
 
       auth.fetchProfile(res[0].sponsor_addr).then((sponsor) => {
         console.log(sponsor)
@@ -182,7 +176,7 @@ export default function Tournament({ title }) {
                         <table>
                           <thead style={{ position: 'sticky', top: '0', zIndex: 2 }}>
                             <tr>
-                              <th className="text-left">User</th>
+                              <th className="text-left">Player</th>
                               <th>Highest Score</th>
                               <th>Action</th>
                             </tr>
@@ -193,10 +187,26 @@ export default function Tournament({ title }) {
                                 return (
                                   <tr key={i}>
                                     <td title={`${item.LSP3Profile.description}`} className={`d-flex flex-row align-items-center`} style={{ columnGap: '.5rem' }}>
-                                    {i===0 && <figure className={`${styles['medal']}`}><img alt={`Place1`} src={Place1} /></figure>}
-                                    {i===1 && <figure className={`${styles['medal']}`}><img alt={`Place2`} src={Place2} /></figure>}
-                                    {i===2 && <figure className={`${styles['medal']}`}><img alt={`Place3`} src={Place3} /></figure>}
-                                    {i > 2 && <figure className={`${styles['medal']}`}><img alt={`NoPlace`} src={NoPlace} /></figure>}
+                                      {i === 0 && (
+                                        <figure className={`${styles['medal']}`}>
+                                          <img alt={`Place1`} src={Place1} />
+                                        </figure>
+                                      )}
+                                      {i === 1 && (
+                                        <figure className={`${styles['medal']}`}>
+                                          <img alt={`Place2`} src={Place2} />
+                                        </figure>
+                                      )}
+                                      {i === 2 && (
+                                        <figure className={`${styles['medal']}`}>
+                                          <img alt={`Place3`} src={Place3} />
+                                        </figure>
+                                      )}
+                                      {i > 2 && (
+                                        <figure className={`${styles['medal']}`}>
+                                          <img alt={`NoPlace`} src={NoPlace} />
+                                        </figure>
+                                      )}
                                       <figure className={`${styles['pfp']}`}>
                                         <img alt={`The Universal Fam NFT Collection`} src={decodeProfileImage(item)} />
                                       </figure>
@@ -247,15 +257,16 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
-                    <div className='alert alert--danger mt-20 border'>
-                    Dear CandyZap Tournament Players,
-<br/>
-Soon we will announce our tournament winners!<br/>
-Please Note: our tournament runs on Eastern Standard US Time. <br/>
-<br/>
-All Official Announcements will be posted on https://candyzap.com and the CandyZap X page. 
-<br/>
-Thanks for playing!🍭🥳
+                    <div className="alert alert--danger mt-20 border">
+                      Dear CandyZap Tournament Players,
+                      <br />
+                      Soon we will announce our tournament winners!
+                      <br />
+                      Please Note: our tournament runs on Eastern Standard US Time. <br />
+                      <br />
+                      All Official Announcements will be posted on https://candyzap.com and the CandyZap X page.
+                      <br />
+                      Thanks for playing!🍭🥳
                     </div>
 
                     <div className={` mt-20`}>

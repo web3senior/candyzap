@@ -109,7 +109,7 @@ export default function Tournament({ title }) {
                           Refresh
                         </button>
                       </div>
-                      <div className={`card__body`} style={{ maxHeight: '300px', overflowY: 'scroll' }}>
+                      <div className={`card__body`} style={{ maxHeight: '100%', overflowY: 'scroll' }}>
                         <table>
                           <thead style={{ position: 'sticky', top: '0' }}>
                             <tr>
@@ -145,61 +145,8 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
-                    <div className={`${styles['sponser']} mt-40`}>
-                      <div className={`card`}>
-                        <div className={`card__header`}>Sponser</div>
-                        <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
-                          {sponser && sponser.LSP3Profile && (
-                            <>
-                              <figure>
-                                <img src={decodeProfileImage(sponser)} />
-                                <figcaption>{sponser.LSP3Profile.name}</figcaption>
-                              </figure>
-                              <p>{sponser.LSP3Profile.description}</p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className={` mt-20`}>
-                      <div className="ms-Grid-row">
-                        <div className="ms-Grid-col ms-sm12 ms-lg6">
-                          <div className={`card`}>
-                            <div className={`card__header`}>Tournament Details</div>
 
-                            <div className={`card__body`}>
-                              <p>
-                                <b>{item.name}</b>
-                              </p>
-                              <p className="mt-10">{item.description}</p>
-                              <p className="mt-10">
-                                Prize: <b>{item.prize}</b> 💰
-                              </p>
-
-                              <div className={`mt-20`} ref={timerRef} id={`countdown${item.id}`}>
-                                {item.end_date}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="ms-Grid-col ms-sm12 ms-lg6">
-                          <div className={`card`}>
-                            <div className={`card__header`}>Game</div>
-
-                            <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
-                              <figure className={``}>
-                                <img src={`${item.game_logo}`} />
-                              </figure>
-                              <p>
-                                <b>{item.game_name}</b>
-                              </p>
-                              <p>{item.game_description}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 )
               })}
