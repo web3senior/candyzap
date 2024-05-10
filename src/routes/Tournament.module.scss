@@ -155,3 +155,11 @@ figure.pfp {
     }
   }
 }
+
+.date-end-cover {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.08);
+  z-index: 999;
+  border-radius: var(--global-border-radius);
+}

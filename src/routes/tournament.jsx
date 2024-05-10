@@ -137,6 +137,9 @@ export default function Tournament({ title }) {
                         )}
                       </div>
                       <div className={`card__body`} style={{ height: '600px' }}>
+                        {
+                          (item.date.end_timestamp< item.date.now) && <div className={styles['date-end-cover']}></div>
+                        }
                         {token && token.length > 0 && (
                           <>
                             {item.id === 8 && pepito < 1 ? (
