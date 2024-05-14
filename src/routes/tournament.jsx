@@ -134,7 +134,8 @@ export default function Tournament({ title }) {
                         )}
                       </div>
                       <div className={`card__body`} style={{ height: '600px' }}>
-                       {(item.status === '0' || item.position === '0' || item.date.end_timestamp < item.date.now) && <div className={styles['date-end-cover']}></div>}
+                        
+                       {item.date.time_distance < 0 ||  item.date.now < item.date.start_timestamp && <div className={styles['date-end-cover']}></div>}
                    
                         {token && token.length > 0 && (
                           <>
