@@ -368,7 +368,7 @@ function Home({ title }) {
           </div>
         </div>
 
-        <div className={`${styles['statistics']} `}>
+        <div className={`${styles['statistics']}`}>
           <div className={`__container`} data-width={`large`}>
             <div className={`${styles['statistics__grid']} grid grid--fit`} style={{ '--data-width': '140px' }}>
               <div className={`${styles['statistics__card']}`}>
@@ -449,36 +449,26 @@ function Home({ title }) {
               </p>
             </div>
 
-            <div className={`alert alert--info alert--border d-flex align-items-center`} style={{ columnGap: '.5rem' }}>
-              <img className="alert__icon" src={IconAds} />
-              Be the sponsor of the upcoming tournaments.
-              <a className="alert__link" href={`https://twitter.com/CandyZapNFT`} target={`_blank`}>
-                contact us
-              </a>
-            </div>
-
             <div className={`${styles['tournament__grid']} grid grid--fit`} style={{ '--data-width': '300px' }}>
               {!tournament && (
                 <>
                   <Shimmer>
-                    <div style={{ width: `300px`, height: `300px`, background: '#F8FAF8' }} />
+                    <div style={{ height: `300px`, background: '#F8FAF8' }} />
                   </Shimmer>
                   <Shimmer>
-                    <div style={{ width: `300px`, height: `300px`, background: '#F8FAF8' }} />
+                    <div style={{ height: `300px`, background: '#F8FAF8' }} />
                   </Shimmer>
                   <Shimmer>
-                    <div style={{ width: `300px`, height: `300px`, background: '#F8FAF8' }} />
+                    <div style={{ height: `300px`, background: '#F8FAF8' }} />
                   </Shimmer>
                 </>
               )}
               {tournament &&
                 tournament.map((item, i) => {
-                  return item.position === `1` ? (
+                  return (
                     <Link to={`play/tournament/${item.id}`} key={i}>
                       <TournamentItem item={item} />
                     </Link>
-                  ) : (
-                    <TournamentItem item={item} key={i} />
                   )
                 })}
             </div>
@@ -508,15 +498,32 @@ const TournamentItem = ({ item }) => {
       </figure>
       <div className={`${styles['tournament__card__body']}`}>
         <h3>{item.name}</h3>
-        <p>{item.description.substring(0, 100)}...</p>
+        <p>{item.description.substring(0, 180)}...</p>
         <div className={`mt-10`}>
-          {item.position === '1' ? <span className={`badge badge-success badge-pill`}>Open</span> : <span className={`badge badge-warning badge-pill`}>Start: {item.start_date} EST</span>}
-          {item.prize && <span className={`badge badge-dark badge-pill ml-10`}>{item.prize}</span>}
-          {item.position === '1' && item.total_player && <span className={`badge badge-danger badge-pill ml-10`}>🎮{item.total_player} plyers</span>}
+          <TournamentState position={item.position} start={item.start_date} />
+          {item.prize && <span className={`badge badge-purpink badge-pill ml-10`}>{item.prize}</span>}
+          {item.total_player > 0 && <span className={`badge badge-primary badge-pill ml-10`}>{item.total_player} plyers</span>}
         </div>
       </div>
     </div>
   )
+}
+
+const TournamentState = ({ position, start }) => {
+  console.log(position)
+
+  switch (position) {
+    case '0':
+      return <span className={`badge badge-success badge-pill`}>Open</span>
+    case '1':
+      return <span className={`badge badge-warning badge-pill`}>Start: {start} EST</span>
+    case '2':
+      return <span className={`badge badge-danger badge-pill`}>Ended</span>
+
+    default:
+      break
+  }
+  return <span className={`badge badge-dark badge-pill`}>Unknown</span>
 }
 
 export default Home

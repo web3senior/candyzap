@@ -1,10 +1,19 @@
 // when player start new level.
+let timer = 0
+let interval = 1000
+let timerInterval
+
 function new_level(level_number) {
   console.log('Started')
+  timerInterval = setInterval(() => {
+    timer += 1
+    console.log(timer)
+  }, interval)
 }
 
 // when play completed level
 function level_completed(level_number, player_score) {
+  clearInterval(timerInterval)
   console.log('Here is the score:', player_score)
   document.querySelector('#score').value = player_score
   window.parent.postMessage({ message: 'playerScore', value: player_score }, '*')
@@ -17,6 +26,7 @@ function level_completed(level_number, player_score) {
     wallet_addr: localStorage.getItem('wallet_addr'),
     score: player_score,
     level_number: level_number,
+    timer: timer
   })
 
   var requestOptions = {
@@ -36,6 +46,8 @@ function level_completed(level_number, player_score) {
 function close_level(level_number) {
   // (Optional) or you can leave it empty
   console.log('CLOSE LEVEL')
+
+  clearInterval(timerInterval)
 }
 
 /*

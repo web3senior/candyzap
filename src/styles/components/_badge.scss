@@ -10,7 +10,6 @@
   white-space: nowrap;
   vertical-align: middle;
   border-radius: 0.25rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .badge-pill {
@@ -28,14 +27,14 @@
 }
 
 .badge-primary {
-  color: #034f8d;
-  border-color: #008cff;
-  background-color: #b2d6f3;
+  color: #36A9F8;
+  border-color: #9ed1fc;
+  background-color: #DFF1FE;
 }
 
 .badge-secondary {
   color: #fff;
-  background-color: #75808a;
+  background-color: #F2F2F2;
 }
 
 .badge-success {
@@ -45,15 +44,15 @@
 }
 
 .badge-danger {
-  color: #d40236;
-  border-color: #f92f60;
-  background-color: #ffdddf;
+  color: #fe005b;
+  border-color: #fde1ef;
+  background-color: #fff1f8;
 }
 
 .badge-warning {
-  color: #807a00;
-  border-color: #e4db00;
-  background-color: #fffcb3;
+  color: #f1bf00;
+  border-color: #fceaab;
+  background-color: #fff6d6;
 }
 
 .badge-info {
@@ -72,6 +71,7 @@
 }
 
 .badge-purpink {
-  color: #fff;
-  background-color: #7f00ff;
+  color: #C6B2FF;
+  border-color: #d5c4fc;
+  background-color: #F6F2FF;
 }

@@ -1,15 +1,10 @@
-/**
-* Provide contextual feedback messages in order to the actions.
-*/
-
-// Use
 @use 'sass:list';
 @use 'sass:map';
 
 // Data Members
 $alerts: (
   primary: (
-    background: #8ed6fb,
+    background: #DFF1FE,
     color: #004085,
     stroke: #1c78c0,
     link: #002752,
@@ -21,8 +16,8 @@ $alerts: (
     link: #202326,
   ),
   danger: (
-    background: #ffd5da,
-    color: #5d101d,
+    background: #FFF1F8,
+    color: #FE005B,
     stroke: #f1aeb5,
     link: #491217,
   ),

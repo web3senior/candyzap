@@ -3,6 +3,7 @@ import { useLoaderData, defer, Form, Await, useRouteError, Link, useNavigate, us
 import { Title } from './helper/DocumentTitle'
 import { useAuth, web3, _, CandyZapContract, PepitoContract } from './../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
+import MaterialIcon from './helper/MaterialIcon'
 import { getTournament, getLeaderboard, serverDate } from './../util/api'
 import Place1 from './../assets/place1.svg'
 import Place2 from './../assets/place2.svg'
@@ -55,14 +56,10 @@ export default function Tournament({ title }) {
 
   const startCountdown = async (tournamentDates) => {
     console.log(tournamentDates)
-    var countDownDate = new Date(`${tournamentDates.server_time}`).getTime();
-    let distance = countDownDate -  tournamentDates.now
-
+    var countDownDate = new Date(`${tournamentDates.server_time}`).getTime()
+    let distance = countDownDate - tournamentDates.now
 
     console.log(countDownDate)
-
-  
-
 
     timer = setInterval(() => {
       // Time calculations for days, hours, minutes and seconds
@@ -94,7 +91,7 @@ export default function Tournament({ title }) {
       console.log(res)
       setTournament(res)
 
-     // startCountdown(res[0].date)
+      // startCountdown(res[0].date)
 
       auth.fetchProfile(res[0].sponsor_addr).then((sponsor) => {
         console.log(sponsor)
@@ -137,9 +134,8 @@ export default function Tournament({ title }) {
                         )}
                       </div>
                       <div className={`card__body`} style={{ height: '600px' }}>
-                        {
-                          (item.date.end_timestamp< item.date.now) && <div className={styles['date-end-cover']}></div>
-                        }
+                        {/* {(item.status === '0' || item.position === '0' || item.date.end_timestamp < item.date.now) && <div className={styles['date-end-cover']}></div>}
+                    */}
                         {token && token.length > 0 && (
                           <>
                             {item.id === 8 && pepito < 1 ? (
@@ -161,7 +157,7 @@ export default function Tournament({ title }) {
                         {token && token.length < 1 && (
                           <>
                             <p className={`${styles['error-alert']}`}>
-                              in order to play, you need to mint CandyZap, mint <Link to={`/`}>NOW!</Link>
+                              In order to play, you need to mint CandyZap, mint <Link to={`/`}>NOW!</Link>
                             </p>
                           </>
                         )}
@@ -172,7 +168,7 @@ export default function Tournament({ title }) {
                       <div className={`card__header d-flex align-items-center justify-content-between`}>
                         Leaderboard [10 Top Users]
                         <button className={`${styles['btn-refresh']}`} onClick={() => getLeaderboardAndUP()}>
-                          Refresh
+                          <MaterialIcon name={`refresh`} />
                         </button>
                       </div>
                       <div className={`card__body`} style={{ maxHeight: '300px', overflowY: 'scroll' }}>
@@ -180,7 +176,7 @@ export default function Tournament({ title }) {
                           <thead style={{ position: 'sticky', top: '0', zIndex: 2 }}>
                             <tr>
                               <th className="text-left">Player</th>
-                              <th>Highest Score</th>
+                              <th>Score</th>
                               <th>Action</th>
                             </tr>
                           </thead>
@@ -263,11 +259,9 @@ export default function Tournament({ title }) {
                     <div className="alert alert--danger mt-20 border">
                       Dear CandyZap Tournament Players,
                       <br />
-                      Soon we will announce our tournament winners!
-                      <br />
                       Please Note: our tournament runs on Eastern Standard US Time. <br />
                       <br />
-                      All Official Announcements will be posted on https://candyzap.com and the CandyZap X page.
+                      All Official Announcements will be posted on www.candyzap.com and the CandyZap X page.
                       <br />
                       Thanks for playing!🍭🥳
                     </div>
