@@ -498,9 +498,9 @@ const TournamentItem = ({ item }) => {
       </figure>
       <div className={`${styles['tournament__card__body']}`}>
         <h3>{item.name}</h3>
-        <p>{item.description.substring(0, 180)}...</p>
+        <p>{item.description.substring(0, 120)}...</p>
         <div className={`mt-10`}>
-          <TournamentState position={item.position} start={item.start_date} />
+          <TournamentState position={item.position} date={item.date} start={item.start_date} end={item.end_date} />
           {item.prize && <span className={`badge badge-purpink badge-pill ml-10`}>{item.prize}</span>}
           {item.total_player > 0 && <span className={`badge badge-primary badge-pill ml-10`}>{item.total_player} plyers</span>}
         </div>
@@ -509,21 +509,18 @@ const TournamentItem = ({ item }) => {
   )
 }
 
-const TournamentState = ({ position, start }) => {
-  console.log(position)
+const TournamentState = ({ position, date, start,end }) => {
+  let start_timestamp = date.start_timestamp
+  let end_timestamp = date.end_timestamp
+  let now = date.now
+  let time_distance = date.time_distance
+  let server_date = date.server_date
 
-  switch (position) {
-    case '0':
-      return <span className={`badge badge-success badge-pill`}>Open</span>
-    case '1':
-      return <span className={`badge badge-warning badge-pill`}>Start: {start} EST</span>
-    case '2':
-      return <span className={`badge badge-danger badge-pill`}>Ended</span>
+  console.log(date)
 
-    default:
-      break
-  }
-  return <span className={`badge badge-dark badge-pill`}>Unknown</span>
+  if (time_distance > 0 && now < start_timestamp) return <span className={`badge badge-warning badge-pill`}>Start: {start} EST</span>
+  if (time_distance < 0) return <span className={`badge badge-danger badge-pill`}>Ended</span>
+  if (time_distance > 0 && now > start_timestamp) return (<><span className={`badge badge-success badge-pill`}>Open</span><span className={`badge badge-warning badge-pill ml-10`}>End: {end}</span></>)
 }
 
 export default Home
