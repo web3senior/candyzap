@@ -124,7 +124,7 @@ export default function Tournament({ title }) {
                         Play box
                         {token && token.length > 0 && (
                           <>
-                            <p className={`badge badge-pill badge-success ms-fontSize-12`}>Congratulations! You own {token.length} CandyZap tokens and can now start playing. Enjoy the game!</p>
+                            <p className={`badge badge-pill badge-success ms-fontSize-12`}>{token.length} CandyZap</p>
                           </>
                         )}
                         {parseInt(item.id) === 8 && (
@@ -138,7 +138,7 @@ export default function Tournament({ title }) {
 
                         {token && token.length > 0 && (
                           <>
-                            {item.id === 8 && pepito < 1 ? (
+                            {parseInt(item.id) === 8 && pepito < 1 ? (
                               <>
                                 <p className={`${styles['error-alert']}`}>
                                   In order to play, you need to have some $PEPITO token, swap{' '}
