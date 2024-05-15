@@ -520,7 +520,7 @@ const TournamentState = ({ position, date, start,end }) => {
 
   if (time_distance > 0 && now < start_timestamp) return <span className={`badge badge-warning badge-pill`}>Start: {start} EST</span>
   if (time_distance < 0) return <span className={`badge badge-danger badge-pill`}>Ended</span>
-  if (time_distance > 0 && now > start_timestamp) return (<><span className={`badge badge-success badge-pill`}>Open</span><span className={`badge badge-warning badge-pill ml-10`}>End: {end}</span></>)
+  if (time_distance > 0 && now > start_timestamp) return (<><span className={`badge badge-success badge-pill`}>Open</span><span className={`badge badge-warning badge-pill ml-10`}>End: {end} EST</span></>)
 }
 
 export default Home
