@@ -19,7 +19,7 @@ export default function Tournament({ title }) {
   const [tournament, setTournament] = useState()
   const [leaderboard, setLeaderboard] = useState([])
   const [token, setToken] = useState([])
-  const [pepito, setPepito] = useState()
+  const [pepito, setPepito] = useState(0)
   const [profile, setProfile] = useState([])
   const [sponsor, setSponsor] = useState()
   const [serverTimestamp, setServerTimestamp] = useState()
@@ -124,7 +124,7 @@ export default function Tournament({ title }) {
                         Play box
                         {token && token.length > 0 && (
                           <>
-                            <p className={`badge badge-pill badge-success ms-fontSize-12`}>Congratulations! You own 2 CandyZap tokens and can now start playing. Enjoy the game!</p>
+                            <p className={`badge badge-pill badge-success ms-fontSize-12`}>Congratulations! You own {token.length} CandyZap tokens and can now start playing. Enjoy the game!</p>
                           </>
                         )}
                         {parseInt(item.id) === 8 && (
@@ -134,9 +134,8 @@ export default function Tournament({ title }) {
                         )}
                       </div>
                       <div className={`card__body`} style={{ height: '600px' }}>
-                        
-                       {(item.date.time_distance < 0 ||  item.date.now < item.date.start_timestamp || item.date.now > item.date.end_timestamp) && <div className={styles['date-end-cover']}></div>}
-                   
+                        {(item.date.time_distance < 0 || item.date.now < item.date.start_timestamp || item.date.now > item.date.end_timestamp) && <div className={styles['date-end-cover']}></div>}
+
                         {token && token.length > 0 && (
                           <>
                             {item.id === 8 && pepito < 1 ? (
@@ -155,6 +154,7 @@ export default function Tournament({ title }) {
                             )}
                           </>
                         )}
+
                         {token && token.length < 1 && (
                           <>
                             <p className={`${styles['error-alert']}`}>
