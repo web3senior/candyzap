@@ -8,6 +8,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
 import Lips from './../../src/assets/lips.svg'
 import Yummy from './../../src/assets/yummy.svg'
+import TournamentsBanner from './../../src/assets/tournaments-banner.png'
 
 import MaxSupplyIcon from './../../src/assets/max-supply.svg'
 import MintPriceIcon from './../../src/assets/mint-price.svg'
@@ -440,7 +441,7 @@ function Home({ title }) {
           </div>
         </div>
 
-        <div className={`${styles['tournament']} d-flex flex-row flex-wrap  align-items-start justify-content-between`}>
+        <div id={`tournament`} className={`${styles['tournament']} d-flex flex-row flex-wrap  align-items-start justify-content-between`}>
           <div className={`__container`} data-width={`large`}>
             <div className={`mb-40`}>
               <h3>Tournaments</h3>
@@ -448,6 +449,10 @@ function Home({ title }) {
                 Stay tuned with <span>Tournaments</span>.
               </p>
             </div>
+
+            <figure className={`mb-30`}>
+              <img src={TournamentsBanner} alt={`Tournaments`}/>
+            </figure>
 
             <div className={`${styles['tournament__grid']} grid grid--fit`} style={{ '--data-width': '300px' }}>
               {!tournament && (

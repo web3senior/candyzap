@@ -82,6 +82,20 @@ export default function Root() {
                       <NavLink to={item.path} target={item.target}>
                         {item.name}
                       </NavLink>
+
+                      {i === 0 && (
+                        <>
+                          <Link
+                            to={`./#tournament`}
+                            className="ml-10"
+                            onClick={() => {
+                              window.document.body.scroll(0, document.querySelector(`#tournament`).getBoundingClientRect().top)
+                            }}
+                          >
+                            Tournament
+                          </Link>
+                        </>
+                      )}
                     </li>
                   )
                 })}
