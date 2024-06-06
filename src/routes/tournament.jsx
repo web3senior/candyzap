@@ -302,7 +302,7 @@ export default function Tournament({ title }) {
 
                             <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
                               <figure className={``}>
-                                <img src={`${item.game_logo}`} />
+                                <img src={`${item.game_logo}`} style={{width: '120px'}}/>
                               </figure>
                               <p>
                                 <b>{item.game_name}</b>
