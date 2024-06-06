@@ -288,3 +288,24 @@
     }
   }
 }
+
+.tournament-link {
+  position: relative;
+
+  &:after {
+    content: 'HOT';
+    position: absolute;
+    right: -0.5rem;
+    top: -0.8rem;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-secondary);
+    padding: 0.1rem 0.2rem;
+    border-radius: 999px;
+    font-size: 10px;
+    transform: rotate(7deg);
+    font-weight: bold;
+  }
+}

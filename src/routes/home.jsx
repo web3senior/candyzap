@@ -446,7 +446,7 @@ function Home({ title }) {
             <div className={`mb-40`}>
               <h3>Tournaments</h3>
               <p>
-                Stay tuned with <span>Tournaments</span>.
+              Sweet victory awaits. Join the CandyZap Tournaments!
               </p>
             </div>
 
@@ -469,7 +469,7 @@ function Home({ title }) {
                 </>
               )}
               {tournament &&
-                tournament.map((item, i) => {
+                tournament.reverse().map((item, i) => {
                   return (
                     <Link to={`play/tournament/${item.id}`} key={i}>
                       <TournamentItem item={item} />
@@ -502,8 +502,7 @@ const TournamentItem = ({ item }) => {
         <img alt={item.name} src={`${item.cover}`} />
       </figure>
       <div className={`${styles['tournament__card__body']}`}>
-        <h3>{item.name}</h3>
-        <p>{item.description.substring(0, 120)}...</p>
+        <h4>{item.name}</h4>
         <div className={`mt-10`}>
           <TournamentState position={item.position} date={item.date} start={item.start_date} end={item.end_date} />
           {item.prize && <span className={`badge badge-purpink badge-pill ml-10`}>{item.prize}</span>}

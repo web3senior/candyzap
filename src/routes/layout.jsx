@@ -87,12 +87,12 @@ export default function Root() {
                         <>
                           <Link
                             to={`./#tournament`}
-                            className="ml-10"
+                            className={`ml-10 ${styles['tournament-link']}`}
                             onClick={() => {
                               window.document.body.scroll(0, document.querySelector(`#tournament`).getBoundingClientRect().top)
                             }}
                           >
-                            Tournament
+                            Tournaments
                           </Link>
                         </>
                       )}
