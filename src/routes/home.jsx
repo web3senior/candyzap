@@ -273,7 +273,7 @@ function Home({ title }) {
 
     getTournamentList().then(async (res) => {
       console.log(res)
-      setTournament(res)
+      setTournament(res.reverse())
       setIsLoading(false)
     })
 
@@ -469,7 +469,7 @@ function Home({ title }) {
                 </>
               )}
               {tournament &&
-                tournament.reverse().map((item, i) => {
+                tournament.map((item, i) => {
                   return (
                     <Link to={`play/tournament/${item.id}`} key={i}>
                       <TournamentItem item={item} />

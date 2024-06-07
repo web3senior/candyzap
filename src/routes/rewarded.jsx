@@ -39,7 +39,7 @@ export default function Rewarded({ title }) {
       redirect: 'follow',
     }
 
-    return await fetch(`https://rpc.lukso.gateway.fm`, requestOptions)
+    return await fetch(import.meta.env.VITE_RPC_URL, requestOptions)
       .then((response) => response.json())
       .then(async (data) => {
         let hex = web3.utils.hexToUtf8(data.result)
@@ -62,7 +62,7 @@ export default function Rewarded({ title }) {
 
   const fetchWhitelist = async () => {
     setProfile([])
-    let web3 = new Web3(`https://rpc.lukso.gateway.fm`)
+    let web3 = new Web3(import.meta.env.VITE_RPC_URL)
     const whitelistFactoryContract = new web3.eth.Contract(ABI, import.meta.env.VITE_WHITELISTFACTORY_CONTRACT_MAINNET)
     return await whitelistFactoryContract.methods.getUserList(WhitelistFactoryAddr).call()
   }
@@ -146,7 +146,7 @@ export default function Rewarded({ title }) {
                     <a
                       className={`text-primary d-flex flex-column align-items-center`}
                       target={`_blank`}
-                      href={`https://wallet.universalprofile.cloud/${item.address}?referrer=universal-family&network=mainnet`}
+                      href={`https://wallet.universalprofile.cloud/${item.address}?referrer=CandyZap&network=mainnet`}
                     >
                      
                       <figure className={`${styles['pfp']} d-flex flex-row align-items-center`} title={`${`${item.address.slice(0, 4)}...${item.address.slice(38)}`}`}>
