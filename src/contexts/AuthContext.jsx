@@ -9,9 +9,9 @@ import LSP0ERC725Account from '@lukso/lsp-smart-contracts/artifacts/LSP0ERC725Ac
 import toast, { Toaster } from 'react-hot-toast'
 import Web3 from 'web3'
 
-export const PROVIDER = window.lukso || window.ethereum ||import.meta.env.VITE_RPC_URL
+export const PROVIDER = window.lukso || window.ethereum || import.meta.env.VITE_RPC_URL
 export const web3 = new Web3(PROVIDER)
-export const CandyZapContract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
+export const contract = new web3.eth.Contract(ABI, import.meta.env.VITE_CANDYZAP_CONTRACT_MAINNET)
 export const PepitoContract = new web3.eth.Contract(ABI, import.meta.env.VITE_PEPITO_CONTRACT_MAINNET)
 export const _ = web3.utils._
 
@@ -42,36 +42,35 @@ export const getIPFS = async (CID) => {
  */
 
 export const fetchProfile = async (addr) => {
-  //console.log(addr)
-  var contract = new web3.eth.Contract(LSP0ERC725Account.abi, addr)
+  const LSP0ERC725AccountContract = new web3.eth.Contract(LSP0ERC725Account.abi, addr)
   try {
-    return contract.methods
-    .getData('0x5ef83ad9559033e6e941db7d7c495acdce616347d28e90c7ce47cbfcfcad3bc5')
-    .call()
-    .then(async (data) => {
-      data = data.substring(6, data.length)
-      // console.log(data)
-      //  data ="0x" + data.substring(6)
-      //  console.log(data)
-      // slice the bytes to get its pieces
-      const hashFunction = '0x' + data.slice(0, 8)
-      // console.log(hashFunction)
-      const hash = '0x' + data.slice(76)
-      const url = '0x' + data.slice(76)
+    return LSP0ERC725AccountContract.methods
+      .getData('0x5ef83ad9559033e6e941db7d7c495acdce616347d28e90c7ce47cbfcfcad3bc5')
+      .call()
+      .then(async (data) => {
+        data = data.substring(6, data.length)
+        // console.log(data)
+        //  data ="0x" + data.substring(6)
+        //  console.log(data)
+        // slice the bytes to get its pieces
+        const hashFunction = '0x' + data.slice(0, 8)
+        // console.log(hashFunction)
+        const hash = '0x' + data.slice(76)
+        const url = '0x' + data.slice(76)
 
-      // console.log(hashFunction, ' | ', hash, ' | ', url)
+        // console.log(hashFunction, ' | ', hash, ' | ', url)
 
-      // check if it uses keccak256
-      //  if (hashFunction === '0x6f357c6a') {
-      // download the json file
-      const json = await getIPFS(web3.utils.hexToUtf8(url).replace('ipfs://', '').replace('://', ''))
-      return json
-      // compare hashes
-      if (web3.utils.keccak256(JSON.stringify(json)) === hash.replace(hashFunction, '')) {
+        // check if it uses keccak256
+        //  if (hashFunction === '0x6f357c6a') {
+        // download the json file
+        const json = await getIPFS(web3.utils.hexToUtf8(url).replace('ipfs://', '').replace('://', ''))
         return json
-      } else false
-      // }
-    })
+        // compare hashes
+        if (web3.utils.keccak256(JSON.stringify(json)) === hash.replace(hashFunction, '')) {
+          return json
+        } else false
+        // }
+      })
   } catch (error) {
     console.log(error)
     return []

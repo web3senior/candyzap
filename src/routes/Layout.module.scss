@@ -293,19 +293,21 @@
   position: relative;
 
   &:after {
-    content: 'HOT';
+    content: '';
     position: absolute;
-    right: -0.5rem;
-    top: -0.8rem;
-    height: 1rem;
+    right: -1.5rem;
+    bottom: 0;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-secondary);
     padding: 0.1rem 0.2rem;
     border-radius: 999px;
     font-size: 10px;
     transform: rotate(7deg);
     font-weight: bold;
+    background-image: url('./../assets/fire.gif');
+    background-size: contain;
   }
 }

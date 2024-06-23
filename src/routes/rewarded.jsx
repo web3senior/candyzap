@@ -1,7 +1,7 @@
 import { Suspense, useState, useEffect, useRef } from 'react'
 import { useLoaderData, defer, Form, Await, useRouteError, Link, useNavigate } from 'react-router-dom'
 import { Title } from './helper/DocumentTitle'
-import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
+import { useAuth, web3, _, contract } from './../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
 import DefaultProfile from './../assets/aratta.svg'
 import styles from './Rewarded.module.scss'
@@ -13,8 +13,9 @@ export default function Rewarded({ title }) {
   const [rewardedList, setRewardedList] = useState()
   const [profile, setProfile] = useState([])
   const [from, setFrom] = useState(0)
+  const auth = useAuth()
 
-  const getRewardList = async () => await CandyZapContract.methods.getRewardList().call()
+  const getRewardList = async () => await contract.methods.getRewardList().call()
 
   const readProfile = async (addr) => {
     const myHeaders = new Headers()
@@ -80,6 +81,7 @@ export default function Rewarded({ title }) {
     setIsLoading(!isLoading)
     fetchWhitelist()
   }
+
   function compare(a, b) {
     if (a.counter < b.counter) {
       return 1
@@ -89,10 +91,11 @@ export default function Rewarded({ title }) {
     }
     return 0
   }
+
   const showUP = async (res, fromFilter, search = false) => {
     if (search) setProfile([])
     let rewardedListFiltered = res.slice(fromFilter, fromFilter + 50)
-    const responses = await Promise.all(rewardedListFiltered.map(async (item) => await Object.assign(await readProfile(item.addr), { counter: item.counter })))
+    const responses = await Promise.all(rewardedListFiltered.map(async (item) => await Object.assign(await auth.fetchProfile(item.addr), { counter: item.counter })))
 
     console.log(responses)
 
@@ -142,19 +145,19 @@ export default function Rewarded({ title }) {
             {profile &&
               profile.map((item, i) => {
                 return (
-                  <div className={`${styles['grid__item']} d-flex flex-column align-items-center justify-content-center animate pop`} key={i}>
+                  <div className={`${styles['grid__item']} d-flex flex-column align-items-center justify-content-center animate pop`} 
+                  key={i}>
                     <a
                       className={`text-primary d-flex flex-column align-items-center`}
                       target={`_blank`}
                       href={`https://wallet.universalprofile.cloud/${item.address}?referrer=CandyZap&network=mainnet`}
                     >
-                     
-                      <figure className={`${styles['pfp']} d-flex flex-row align-items-center`} title={`${`${item.address.slice(0, 4)}...${item.address.slice(38)}`}`}>
+                      <figure className={`${styles['pfp']} d-flex flex-row align-items-center`} >
                         <img alt={`The Universal Fam NFT Collection`} src={decodeProfileImage(item.LSP3Profile)} />
                       </figure>
                       <b>@{item.LSP3Profile.name ? item.LSP3Profile.name : 'unnamed'}</b>
                       <span className={`${styles['counter']}`}>{item.counter} </span>
-                     <span className={`${styles['amount']}`}> {Math.round(item.counter * 0.2 * 100) / 100} $LYX</span>
+                      <span className={`${styles['amount']}`}> {Math.round(item.counter * 0.2 * 100) / 100} $LYX</span>
                     </a>
                   </div>
                 )

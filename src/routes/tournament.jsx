@@ -1,7 +1,7 @@
 import { Suspense, useState, useEffect, useRef } from 'react'
 import { useLoaderData, defer, Form, Await, useRouteError, Link, useNavigate, useParams } from 'react-router-dom'
 import { Title } from './helper/DocumentTitle'
-import { useAuth, web3, _, CandyZapContract, PepitoContract } from './../contexts/AuthContext'
+import { useAuth, web3, _, contract, PepitoContract } from './../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
 import MaterialIcon from './helper/MaterialIcon'
 import { getTournament, getLeaderboard, serverDate } from './../util/api'
@@ -38,7 +38,7 @@ export default function Tournament({ title }) {
     return url
   }
 
-  const getTokenIdsOf = async (addr) => await CandyZapContract.methods.tokenIdsOf(addr).call()
+  const getTokenIdsOf = async (addr) => await contract.methods.tokenIdsOf(addr).call()
 
   const getPepitoTokenIdsOf = async (addr) => await PepitoContract.methods.balanceOf(addr).call()
 

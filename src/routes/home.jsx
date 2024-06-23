@@ -5,7 +5,7 @@ import MaterialIcon from './helper/MaterialIcon'
 import Shimmer from './helper/Shimmer'
 import { getTournamentList } from './../util/api'
 import toast, { Toaster } from 'react-hot-toast'
-import { useAuth, web3, _, CandyZapContract } from './../contexts/AuthContext'
+import { useAuth, web3, _, contract } from './../contexts/AuthContext'
 import Lips from './../../src/assets/lips.svg'
 import Yummy from './../../src/assets/yummy.svg'
 import TournamentsBanner from './../../src/assets/tournaments-banner.png'
@@ -198,13 +198,13 @@ function Home({ title }) {
     setCandySecondaryColor(`rgb(${rgb2})`)
   }
 
-  const getPrice = async () => await CandyZapContract.methods.price().call()
+  const getPrice = async () => await contract.methods.price().call()
 
-  const getTotalSupply = async () => await CandyZapContract.methods.totalSupply().call()
+  const getTotalSupply = async () => await contract.methods.totalSupply().call()
 
-  const getHolderReward = async () => await CandyZapContract.methods.HOLDER_REWARD().call()
+  const getHolderReward = async () => await contract.methods.HOLDER_REWARD().call()
 
-  const getMaxSupply = async () => await CandyZapContract.methods.MAX_SUPPLY().call()
+  const getMaxSupply = async () => await contract.methods.MAX_SUPPLY().call()
 
   const handleMint = async (e) => {
     if (!price) {
@@ -224,7 +224,7 @@ function Home({ title }) {
           // walletID.innerHTML = `Wallet connected: ${account}`;
 
           web3.eth.defaultAccount = account
-          CandyZapContract.methods
+          contract.methods
             .newMint()
             .send({
               from: account,
@@ -343,9 +343,7 @@ function Home({ title }) {
               CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.
             </p>
 
-            <button className={`${styles['mint']} mt-20`} onClick={(e) => handleMint(e)}>
-              Mint
-            </button>
+            <button className={`${styles['mint']} mt-20`} onClick={(e) => handleMint(e)}>Mint</button>
 
             {winner && (
               <h4 className={`mt-40`}>
@@ -503,10 +501,10 @@ const TournamentItem = ({ item }) => {
       </figure>
       <div className={`${styles['tournament__card__body']}`}>
         <h4>{item.name}</h4>
-        <div className={`mt-10`}>
+        <div className={`mt-10  d-flex flex-row flex-wrap align-items-start justify-content-start`} style={{columnGap:'.25rem'}}>
           <TournamentState position={item.position} date={item.date} start={item.start_date} end={item.end_date} />
-          {item.prize && <span className={`badge badge-purpink badge-pill ml-10`}>{item.prize}</span>}
-          {item.total_player > 0 && <span className={`badge badge-primary badge-pill ml-10`}>{item.total_player} plyers</span>}
+          {item.prize && <span className={`badge badge-purpink badge-pill`}>{item.prize}</span>}
+          {item.total_player > 0 && <span className={`badge badge-primary badge-pill`}>{item.total_player} plyers</span>}
         </div>
       </div>
     </div>
