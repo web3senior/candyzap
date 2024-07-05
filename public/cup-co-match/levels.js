@@ -111,7 +111,7 @@ const Levels = [
     ],
   }, // 8
   {
-    w:7, items:[4,1,2,3,5], power_percent:100, time:60*15, music:1,
+    w:7, items:[4,1,2,3,5], power_percent:100, time:60*4, music:1,
     t:[
       '1111111',
       '1111111',
@@ -123,7 +123,7 @@ const Levels = [
     ],
   }, // 9
   {
-    w:9, items:[0,1,2,3], power_percent:100, time:60*14, music:1,
+    w:9, items:[0,1,2,3], power_percent:100, time:60*4, music:1,
     t:[
       '001101100',
       '011111110',
@@ -175,7 +175,7 @@ const Levels = [
     ],
   }, // 13
   {
-    w:8, items:[5,4,4,1], power_percent:30, time:60*12, music:1,
+    w:8, items:[5,4,4,1], power_percent:30, time:60*4, music:1,
     t:[
       '11000011',
       '11111111',
@@ -188,7 +188,7 @@ const Levels = [
     ],
   }, // 14
   {
-    w:9, items:[0,6,3,2,1,5], power_percent:90, time:60*12, music:1,
+    w:9, items:[0,6,3,2,1,5], power_percent:90, time:60*4, music:1,
     t:[
       '011111110',
       '011111110',
@@ -202,7 +202,7 @@ const Levels = [
     ],
   }, // 15
   {
-    w:9, items:[3,2,1,5], power_percent:80, time:60*12, music:1,
+    w:9, items:[3,2,1,5], power_percent:80, time:60*4, music:1,
     t:[
       '010101010',
       '010101010',
@@ -216,7 +216,7 @@ const Levels = [
     ],
   }, // 16
   {
-    w:9, items:[3,5,1,0], power_percent:100, time:60*12, music:1,
+    w:9, items:[3,5,1,0], power_percent:100, time:60*4, music:1,
     t:[
       '001101100',
       '101101101',
@@ -245,7 +245,7 @@ const Levels = [
     ],
   }, // 18
   {
-    w:8, items:[2,6,5,1,0], power_percent:50, time:60*6, music:1,
+    w:8, items:[2,6,5,1,0], power_percent:50, time:60*4, music:1,
     t:[
       '11111111',
       '01111110',
