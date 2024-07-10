@@ -15,9 +15,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(65.98% 75.49% at 0% 100%, rgba(238, 228, 146, 0.72) 0%, rgba(238, 228, 146, 0) 100%),
-      radial-gradient(76.8% 87.87% at 100% 100%, rgba(224, 166, 118, 0.86) 0%, rgba(224, 166, 118, 0.2236) 100%), radial-gradient(125.47% 77.59% at 0% 15.76%, #ff7cb2 0%, rgba(230, 162, 190, 0) 100%),
-      #e2c27a;
+    background: radial-gradient(76.8% 87.87% at 100% 100%, #dde9ce 0%, rgba(221, 233, 206, 0) 100%),
+      radial-gradient(63.07% 58% at 0% 100%, #a5b3f9 0%, rgba(165, 179, 249, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+      radial-gradient(85.81% 77.46% at 0% 12.68%, #e7ccfb 0%, rgba(231, 204, 251, 0) 100%), #c1e1fc;
+
+
 
     &:before {
       content: '';
