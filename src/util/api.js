@@ -1,4 +1,21 @@
 /**
+ * New record
+ * @param {json} post 
+ * @returns 
+ */
+export async function newRecord(post) {
+  var requestOptions = {
+    method: 'POST',
+    body: JSON.stringify(post),
+    redirect: 'follow',
+  }
+
+  const response = await fetch(`${import.meta.env.VITE_API_URL}newRecord`, requestOptions)
+  if (!response.ok) throw new Response('Failed to get data', { status: 500 })
+  return response.json()
+}
+
+/**
  * u
  * @returns
  */

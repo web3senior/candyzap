@@ -4,7 +4,7 @@ import { Title } from './helper/DocumentTitle'
 import { useAuth, web3, _, contract, PepitoContract } from './../contexts/AuthContext'
 import Shimmer from './helper/Shimmer'
 import MaterialIcon from './helper/MaterialIcon'
-import { getTournament, getLeaderboard, serverDate } from './../util/api'
+import { getTournament, getLeaderboard, serverDate, newRecord } from './../util/api'
 import Place1 from './../assets/place1.svg'
 import Place2 from './../assets/place2.svg'
 import Place3 from './../assets/place3.svg'
@@ -45,7 +45,7 @@ export default function Tournament({ title }) {
   const getLeaderboardAndUP = () => {
     setLeaderboard([])
     getLeaderboard(params.id).then(async (res) => {
-      console.log(res)
+      // console.table(res)
       const responses = await Promise.all(res.map(async (item) => Object.assign(await auth.fetchProfile(item.wallet_addr), item)))
       console.log(responses)
       setLeaderboard((leaderboard) => leaderboard.concat(responses))
@@ -90,24 +90,37 @@ export default function Tournament({ title }) {
     getTournament(params.id).then(async (res) => {
       console.log(res)
       setTournament(res)
-
       // startCountdown(res[0].date)
-
       auth.fetchProfile(res[0].sponsor_addr).then((sponsor) => {
-        console.log(sponsor)
+        // console.log(sponsor)
         setSponsor(sponsor)
       })
-
       setIsLoading(false)
     })
 
-    getTokenIdsOf(auth.wallet).then(async (res) => {
-      setToken(res)
-    })
+    getTokenIdsOf(auth.wallet).then(async (res) => setToken(res))
 
     getLeaderboardAndUP()
 
     localStorage.setItem('tournamentId', params.id)
+
+    window.addEventListener(
+      'message',
+      (event) => {
+        // Do we trust the sender of this message?  (might be different from what we originally opened, for example).
+        if (event.origin !== `https://proofmath-cz.vercel.app` && event.data.message !== `playerScore`) return
+
+        newRecord({
+          tournament_id: localStorage.getItem('tournamentId'),
+          wallet_addr: localStorage.getItem('wallet_addr'),
+          score: event.data.value,
+          level_number: 1,
+        }).then((res) => {
+          getLeaderboardAndUP()
+        })
+      },
+      false
+    )
   }, [timer])
 
   return (
@@ -149,7 +162,8 @@ export default function Tournament({ title }) {
                               </>
                             ) : (
                               <>
-                                <iframe src={`/${tournament && tournament[0]?.game_folder_name}/index.html`} />
+                                {tournament && tournament[0].type === `internal` && <iframe src={`/${tournament[0]?.game_folder_name}/index.html`} />}
+                                {tournament && tournament[0].type === `external` && <iframe src={`${tournament[0]?.game_folder_name}`} />}
                               </>
                             )}
                           </>
@@ -302,7 +316,7 @@ export default function Tournament({ title }) {
 
                             <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
                               <figure className={``}>
-                                <img src={`${item.game_logo}`} style={{width: '120px'}}/>
+                                <img src={`${item.game_logo}`} style={{ width: '120px' }} />
                               </figure>
                               <p>
                                 <b>{item.game_name}</b>
