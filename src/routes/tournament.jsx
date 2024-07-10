@@ -149,7 +149,7 @@ export default function Tournament({ title }) {
                               </>
                             ) : (
                               <>
-                                <iframe src={`/${tournament && tournament[0]?.game_folder_name}/index.html`} />
+                                <iframe src={`/${tournament && tournament[0]?.game_folder_name}`} />
                               </>
                             )}
                           </>
