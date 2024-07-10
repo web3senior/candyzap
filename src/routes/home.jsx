@@ -445,7 +445,7 @@ function Home({ title }) {
           <div className={`__container`} data-width={`large`}>
             <div className={`mb-40`}>
               <h3>Tournaments</h3>
-              <p>Sweet victory awaits. Join the CandyZap Tournaments!</p>
+              <p>Sweet victory awaits. Join the Candyzap Tournaments!</p>
             </div>
 
             <figure className={`mb-30`}>
