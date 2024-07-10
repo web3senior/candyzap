@@ -10,6 +10,7 @@ import Place2 from './../assets/place2.svg'
 import Place3 from './../assets/place3.svg'
 import NoPlace from './../assets/no-place.svg'
 import DefaultProfile from './../assets/aratta.svg'
+import Loading from './components/LoadingSpinner'
 import styles from './Tournament.module.scss'
 
 export default function Tournament({ title }) {
@@ -24,6 +25,7 @@ export default function Tournament({ title }) {
   const [sponsor, setSponsor] = useState()
   const [serverTimestamp, setServerTimestamp] = useState()
   const [from, setFrom] = useState(0)
+  const [newRecordState, setNewRecordState] = useState(true)
   const auth = useAuth()
   const params = useParams()
   const timerRef = useRef()
@@ -104,11 +106,13 @@ export default function Tournament({ title }) {
 
     localStorage.setItem('tournamentId', params.id)
 
+
     window.addEventListener(
       'message',
       (event) => {
         // Do we trust the sender of this message?  (might be different from what we originally opened, for example).
         if (event.origin !== `https://proofmath-cz.vercel.app` && event.data.message !== `playerScore`) return
+        console.log(event.origin)
 
         newRecord({
           tournament_id: localStorage.getItem('tournamentId'),
@@ -125,6 +129,7 @@ export default function Tournament({ title }) {
 
   return (
     <>
+      {isLoading && <Loading />}
       <section className={`${styles.section}`}>
         <div className={`__container`} data-width={`large`}>
           <div className={`${styles['grid']} grid grid--fit`} style={{ '--data-width': '120px' }}>
@@ -228,8 +233,8 @@ export default function Tournament({ title }) {
                                         <b className={``}>
                                           @{item.LSP3Profile.name} ({item.counter} times played)
                                         </b>
-                                        <Link to={`https://universalprofile.cloud/${item.wallet_addr}`} target={`_blank`} style={{ color: 'black', opacity: 0.2, zIndex: 1 }}>
-                                          {item.wallet_addr}
+                                        <Link to={`https://universalprofile.cloud/${item.wallet_addr}`} target={`_blank`} style={{ color: 'black', opacity: 0.6, zIndex: 1 }}>
+                                          {`${item.wallet_addr.slice(0, 4)}...${item.wallet_addr.slice(38)}`}
                                         </Link>
                                       </div>
                                     </td>
