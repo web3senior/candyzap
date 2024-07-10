@@ -9,19 +9,31 @@
   }
 
   .lips {
+    position: relative;
     padding: 1rem 0 2rem 0;
     background-color: var(--color-primary);
     display: flex;
     align-items: center;
     justify-content: center;
+    background: radial-gradient(65.98% 75.49% at 0% 100%, rgba(238, 228, 146, 0.72) 0%, rgba(238, 228, 146, 0) 100%),
+      radial-gradient(76.8% 87.87% at 100% 100%, rgba(224, 166, 118, 0.86) 0%, rgba(224, 166, 118, 0.2236) 100%), radial-gradient(125.47% 77.59% at 0% 15.76%, #ff7cb2 0%, rgba(230, 162, 190, 0) 100%),
+      #e2c27a;
 
+    &:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('./../assets/hero-bg.svg');
+      opacity: 0.1;
+      background-size: 40%;
+    }
     &__container {
     }
 
     figure {
       position: relative;
     }
-    
+
     svg {
       position: absolute;
       right: 0rem;

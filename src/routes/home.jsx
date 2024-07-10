@@ -343,7 +343,9 @@ function Home({ title }) {
               CandyZap is an on-chain art collection that utilizes a random holder reward system. It operates on the Lukso LSP8 standard and uses a 256^3 RGB color model.
             </p>
 
-            <button className={`${styles['mint']} mt-20`} onClick={(e) => handleMint(e)}>Mint</button>
+            <button className={`${styles['mint']} mt-20`} onClick={(e) => handleMint(e)}>
+              Mint
+            </button>
 
             {winner && (
               <h4 className={`mt-40`}>
@@ -443,13 +445,11 @@ function Home({ title }) {
           <div className={`__container`} data-width={`large`}>
             <div className={`mb-40`}>
               <h3>Tournaments</h3>
-              <p>
-              Sweet victory awaits. Join the CandyZap Tournaments!
-              </p>
+              <p>Sweet victory awaits. Join the CandyZap Tournaments!</p>
             </div>
 
             <figure className={`mb-30`}>
-              <img src={TournamentsBanner} alt={`Tournaments`}/>
+              <img src={TournamentsBanner} alt={`Tournaments`} />
             </figure>
 
             <div className={`${styles['tournament__grid']} grid grid--fit`} style={{ '--data-width': '300px' }}>
@@ -501,17 +501,19 @@ const TournamentItem = ({ item }) => {
       </figure>
       <div className={`${styles['tournament__card__body']}`}>
         <h4>{item.name}</h4>
-        <div className={`mt-10  d-flex flex-row flex-wrap align-items-start justify-content-start`} style={{columnGap:'.25rem'}}>
+        <small style={{ background: `#f9f9f9`, padding: `.5rem 1rem`, display: `inline-block`, borderRadius: `.1rem` }}>
+          {item.total_player} plyers
+        </small>
+        <div className={`mt-10  d-flex flex-row flex-wrap align-items-start justify-content-start`} style={{ columnGap: '.25rem' }}>
           <TournamentState position={item.position} date={item.date} start={item.start_date} end={item.end_date} />
           {item.prize && <span className={`badge badge-purpink badge-pill`}>{item.prize}</span>}
-          {item.total_player > 0 && <span className={`badge badge-primary badge-pill`}>{item.total_player} plyers</span>}
         </div>
       </div>
     </div>
   )
 }
 
-const TournamentState = ({ position, date, start,end }) => {
+const TournamentState = ({ position, date, start, end }) => {
   let start_timestamp = date.start_timestamp
   let end_timestamp = date.end_timestamp
   let now = date.now
@@ -522,7 +524,13 @@ const TournamentState = ({ position, date, start,end }) => {
 
   if (time_distance > 0 && now < start_timestamp) return <span className={`badge badge-warning badge-pill`}>Start: {start} EST</span>
   if (time_distance < 0) return <span className={`badge badge-danger badge-pill`}>Ended</span>
-  if (time_distance > 0 && now > start_timestamp) return (<><span className={`badge badge-success badge-pill`}>Open</span><span className={`badge badge-warning badge-pill ml-10`}>End: {end} EST</span></>)
+  if (time_distance > 0 && now > start_timestamp)
+    return (
+      <>
+        <span className={`badge badge-success badge-pill`}>Open</span>
+        <span className={`badge badge-warning badge-pill ml-10`}>End: {end} EST</span>
+      </>
+    )
 }
 
 export default Home
