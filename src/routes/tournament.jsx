@@ -106,7 +106,6 @@ export default function Tournament({ title }) {
 
     localStorage.setItem('tournamentId', params.id)
 
-
     window.addEventListener(
       'message',
       (event) => {
@@ -185,12 +184,6 @@ export default function Tournament({ title }) {
                     </div>
 
                     <div className={`card mt-20`}>
-                      <div className={`card__header d-flex align-items-center justify-content-between`}>
-                        Leaderboard [10 Top Users]
-                        <button className={`${styles['btn-refresh']}`} onClick={() => getLeaderboardAndUP()}>
-                          <MaterialIcon name={`refresh`} />
-                        </button>
-                      </div>
                       <div className={`card__body`} style={{ maxHeight: '300px', overflowY: 'scroll' }}>
                         <table>
                           <thead style={{ position: 'sticky', top: '0', zIndex: 2 }}>
@@ -230,11 +223,10 @@ export default function Tournament({ title }) {
                                         <img alt={`The Universal Fam NFT Collection`} src={decodeProfileImage(item)} />
                                       </figure>
                                       <div className={`d-flex flex-column`}>
-                                        <b className={``}>
-                                          @{item.LSP3Profile.name} ({item.counter} times played)
-                                        </b>
                                         <Link to={`https://universalprofile.cloud/${item.wallet_addr}`} target={`_blank`} style={{ color: 'black', opacity: 0.6, zIndex: 1 }}>
-                                          {`${item.wallet_addr.slice(0, 4)}...${item.wallet_addr.slice(38)}`}
+                                          <b className={``}>
+                                            @{item.LSP3Profile.name} ({item.counter} times played)
+                                          </b>
                                         </Link>
                                       </div>
                                     </td>
@@ -252,9 +244,8 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
-                    <div className={`${styles['sponsor']} mt-40`}>
+                    <div className={`${styles['sponsor']} mt-10`}>
                       <div className={`card`}>
-                        <div className={`card__header`}>sponsor</div>
                         <div className={`card__body d-flex flex-column align-items-center justify-content-center`}>
                           {sponsor && sponsor.LSP3Profile && (
                             <>
@@ -276,14 +267,18 @@ export default function Tournament({ title }) {
                       </div>
                     </div>
 
-                    <div className="alert alert--danger mt-20 border">
-                      Dear CandyZap Tournament Players,
-                      <br />
-                      Please Note: our tournament runs on Eastern Standard US Time. <br />
-                      <br />
-                      All Official Announcements will be posted on www.candyzap.com and the CandyZap X page.
-                      <br />
-                      Thanks for playing!🍭🥳
+                    <div className={`card mt-10`}>
+                      <div className={`card__body`}>
+                        <div className="alert alert--danger mt-20 border">
+                          Dear CandyZap Tournament Players,
+                          <br />
+                          Please Note: our tournament runs on Eastern Standard US Time. <br />
+                          <br />
+                          All Official Announcements will be posted on www.candyzap.com and the CandyZap X page.
+                          <br />
+                          Thanks for playing!🍭🥳
+                        </div>
+                      </div>
                     </div>
 
                     <div className={` mt-20`}>
