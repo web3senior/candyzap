@@ -106,6 +106,8 @@ export default function Tournament({ title }) {
 
     localStorage.setItem('tournamentId', params.id)
 
+    let oldScore, oldTime;
+
     window.addEventListener(
       'message',
       (event) => {
@@ -113,12 +115,16 @@ export default function Tournament({ title }) {
         if (event.origin !== `https://proofmath-cz.vercel.app` && event.data.message !== `playerScore`) return
         console.log(event.origin)
 
+        if (oldScore === event.data.value && oldTime === Date.now()) return 
+
         newRecord({
           tournament_id: localStorage.getItem('tournamentId'),
           wallet_addr: localStorage.getItem('wallet_addr'),
           score: event.data.value,
           level_number: 1,
         }).then((res) => {
+          oldScore = event.data.value
+          oldTime = Date.now()
           getLeaderboardAndUP()
         })
       },
