@@ -119,13 +119,13 @@ export default function Tournament({ title }) {
         // Check duplicated request
         if (event.timeStamp === eventTimeStamp) return
 
+        eventTimeStamp = event.timeStamp
         newRecord({
           tournament_id: localStorage.getItem('tournamentId'),
           wallet_addr: localStorage.getItem('wallet_addr'),
           score: event.data.value,
           level_number: 1,
         }).then((res) => {
-          eventTimeStamp = event.timeStamp
           getLeaderboardAndUP()
         })
       },
