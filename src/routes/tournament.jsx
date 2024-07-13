@@ -106,16 +106,18 @@ export default function Tournament({ title }) {
 
     localStorage.setItem('tournamentId', params.id)
 
-    let oldScore, oldTime;
+    let eventTimeStamp = ''
 
     window.addEventListener(
       'message',
       (event) => {
-        // Do we trust the sender of this message?  (might be different from what we originally opened, for example).
-        if (event.origin !== `https://proofmath-cz.vercel.app` && event.data.message !== `playerScore`) return
-        console.log(event.origin)
+        console.log(event)
 
-        if (oldScore === event.data.value && oldTime === Date.now()) return 
+        // Trust to sender
+        if (event.origin !== `https://proofmath-cz.vercel.app` && event.data.message !== `playerScore`) return
+
+        // Check duplicated request
+        if (event.timeStamp === eventTimeStamp) return
 
         newRecord({
           tournament_id: localStorage.getItem('tournamentId'),
@@ -123,8 +125,7 @@ export default function Tournament({ title }) {
           score: event.data.value,
           level_number: 1,
         }).then((res) => {
-          oldScore = event.data.value
-          oldTime = Date.now()
+          eventTimeStamp = event.timeStamp
           getLeaderboardAndUP()
         })
       },
