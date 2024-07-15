@@ -502,7 +502,7 @@ const TournamentItem = ({ item }) => {
       <div className={`${styles['tournament__card__body']}`}>
         <h4>{item.name}</h4>
         <small style={{ background: `#f9f9f9`, padding: `.5rem 1rem`, display: `inline-block`, borderRadius: `.1rem` }}>
-          {item.total_player} plyers
+          {item.total_player} players
         </small>
         <div className={`mt-10  d-flex flex-row flex-wrap align-items-start justify-content-start`} style={{ columnGap: '.25rem' }}>
           <TournamentState position={item.position} date={item.date} start={item.start_date} end={item.end_date} />
