@@ -1,3 +1,9 @@
+# CandyZap
+-----
+
+## Demo
+### https://candyzap.com/
+
 ### Description
 CandyZap is a groundbreaking Web3 platform that combines the excitement of NFT collectibles with the thrill of competitive gaming. By minting a unique Candy NFT, players unlock access to a world of thrilling math-based challenges.
 
